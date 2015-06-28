@@ -1,0 +1,21 @@
+<!doctype html>
+<html ng-app="flowApp">
+
+<head>
+	<meta charset="utf-8">
+	<title></title>
+
+	<link rel="stylesheet" href="./css/app.css">
+
+</head>
+
+<body ng-controller="mainCtrl">
+
+	<button ng-click="generateNode()">Add Node</button>
+	<node ng-repeat="n in nodes" node-object="n"></node>
+
+	<script src="build/app.js"></script>
+
+</body>
+
+</html>

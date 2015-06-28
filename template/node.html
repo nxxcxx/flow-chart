@@ -1,0 +1,19 @@
+<div class="nodeBox">
+
+   <div class="head">{{nodeObject.title}}</div>
+
+   <ul sortable class="bodyLeft">
+      <li class="item" ng-repeat="input in nodeObject.input">
+         <connector class="conn" uid="input.uid" drag-event-handler="handleDragEvent( eventType )" sort-event-handler="handleSortEvent( eventType )"></connector>
+         {{ input.name }}
+      </li>
+   </ul>
+
+   <ul sortable class="bodyRight">
+      <li class="item" ng-repeat="output in nodeObject.output">
+         {{ output.name }}
+         <connector class="conn" uid="output.uid" drag-event-handler="handleDragEvent( eventType )" sort-event-handler="handleSortEvent( eventType )"></connector>
+      </li>
+   </ul>
+
+</div>
