@@ -1,14 +1,19 @@
 
+global.UUID = require( 'uuid' );
+
 global.$ = require( 'jquery' );
 require( 'jquery-ui' );
 
 
 require( 'angular' )
 .module( 'flowApp', [] )
-.controller( 'mainCtrl', [ '$scope', ( $scope ) => {
+.controller( 'nodeCtrl', [ '$scope', ( $scope ) => {
 
    global.scope = $scope;
    $scope.nodes = [];
+
+   // todo $scope.connection = []; // this defines all connection between nodes
+
 
    var inputs = [ 'data', 'x', 'y', 'z', 'w', 'uv', 'mat4', 'vec2', 'color', 'geometry', 'vector3', 'buffer', 'mesh', 'material' ];
 
@@ -21,8 +26,9 @@ require( 'angular' )
       var node = {
 
          title: rnd(),
-         input: [ { name: rnd(), uid: Math.random() }, { name: rnd(), uid: Math.random() } , { name: rnd(), uid: Math.random() } ],
-         output: [ { name: rnd(), uid: Math.random() }, { name: rnd(), uid: Math.random() } ]
+         uuid: UUID(),
+         input: [ { name: rnd(), uuid: UUID() }, { name: rnd(), uuid: UUID() } , { name: rnd(), uuid: UUID() } ],
+         output: [ { name: rnd(), uuid: UUID() }, { name: rnd(), uuid: UUID() } ]
 
       };
 
@@ -54,10 +60,9 @@ require( 'angular' )
          $scope.handleDragEvent = eventType => {
 
             $( $element ).draggable( eventType );
-            console.log( `drag ${eventType}d.` );
+            // console.log( `drag ${eventType}d.` );
 
          };
-
 
       }
 
@@ -80,7 +85,7 @@ require( 'angular' )
          $scope.handleSortEvent = eventType => {
 
             $( $element ).sortable( eventType );
-            console.log( `sort ${eventType}d.` );
+            // console.log( `sort ${eventType}d.` );
 
          };
 
@@ -95,14 +100,11 @@ require( 'angular' )
 
       restrict: 'E',
       scope: {
-         uid: '=',
+         uuid: '=',
          notifyDragHandler: '&dragEventHandler',
          notifySortHandler: '&sortEventHandler'
       },
       link: ( scope, elem, attr, ctrl ) => {
-
-         console.log( scope.uid );
-         console.log( scope );
 
          $( elem )
          .on( 'mouseenter', e  => {
@@ -119,8 +121,7 @@ require( 'angular' )
          } )
          .on( 'mouseover', e => {
 
-            console.log( $(elem).parent().text().trim() );
-            console.log( scope.uid )
+            console.log( $(elem).parent().text().trim(), scope.uuid );
 
          } );
 
