@@ -52,6 +52,6 @@ gulp.task( 'serve', [ 'bundle' ], function () {
 	} );
 
    // init watch task
-	gulp.watch( [ './build/*', 'template/*' ], browserSync.reload );
+	gulp.watch( [ 'index.html', './build/*', 'template/*' ], browserSync.reload );
 
 } );
