@@ -1,5 +1,5 @@
 <!doctype html>
-<html ng-app="flowApp">
+<html ng-app="nodeApp">
 
 <head>
 	<meta charset="utf-8">
@@ -11,9 +11,8 @@
 
 <body ng-controller="nodeCtrl">
 
-
-
 	<button ng-click="generateNode()">Add Node</button>
+
 	<node ng-repeat="n in nodes" node-object="n"></node>
 
 	<svg id="nodeCanvas">

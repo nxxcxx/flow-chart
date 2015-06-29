@@ -1,95 +1,57 @@
 'use strict';
 
 var browserSync = require( 'browser-sync' ).create();
-var gulp = require( 'gulp' );
-var $ = require( 'gulp-load-plugins' )();
+var watchify = require( 'watchify' );
 var browserify = require( 'browserify' );
+var babelify = require( 'babelify' );
+var gulp = require( 'gulp' );
+var gutil = require( 'gulp-util' );
 var source = require( 'vinyl-source-stream' );
 var buffer = require( 'vinyl-buffer' );
-var babelify = require( 'babelify' );
+var assign = require( 'lodash.assign' );
 
-gulp.task( 'browserify', function() {
+var customOpts = {
+	entries: [ './src/index.js' ],
+	debug: true
+};
+var opts = assign( {}, watchify.args, customOpts );
+var br = watchify( browserify( opts ) );
+br.transform( babelify );
+br.on( 'update', bundle );
+br.on( 'log', gutil.log );
 
-   var br = browserify( {
+gulp.task( 'bundle', bundle );
 
-      entries: './src/index.js',
-      debuf: true,
-      transform: [ babelify ]
+function bundle() {
 
-   } );
-
-   return br.bundle()
-      .pipe( source( 'app.js' ) )
-      .pipe( buffer() )
-      .pipe( $.sourcemaps.init( { loadMaps: true } ) )
-
-      .pipe( $.sourcemaps.write( '.' ) )
-      .pipe( gulp.dest( './build/' ) );
-
-} );
-
-gulp.task( 'serve', [ 'browserify' ], function () {
-
-	initBrowserSync();
-	initWatchTask();
-
-} );
-
-gulp.task( 'reload', [ 'browserify' ], function () {
-
-	browserSync.reload();
-
-} );
-
-function initWatchTask() {
-
-	gulp.watch( [ './index.html', './src/*.js', './css/*.css' ], [ 'reload' ] );
+	return br.bundle()
+		.on( 'error', gutil.log.bind( gutil, 'Browserify Error' ) )
+		.pipe( source( 'app.js' ) )
+		.pipe( buffer() )
+		.pipe( gulp.dest( './build' ) );
 
 }
 
-function initBrowserSync() {
+// gulp serve -> start bundle( browserify & watchify & babelify ) -> watch bundle -> reload browser
+gulp.task( 'serve', [ 'bundle' ], function () {
 
-	browserSync.init( {
+   // init browser-sync
+   browserSync.init( {
 
+      files: [ './css/*' ],
+      injectChanges: true,
 		server: {
 			baseDir: '.',
 			index: 'index.html'
 		},
-
+		port: 3000,
 		ui: false,
 		open: false,
 		reloadOnRestart: true
 
 	} );
 
-}
+   // init watch task
+	gulp.watch( [ './build/*', 'template/*' ], browserSync.reload );
 
-function onError( err ) {
-
-	$.util.log( $.util.colors.red( err ) );
-	$.util.beep();
-
-}
-
-
-// gulp.task( 'build:partials', function () {
-//
-// 	return gulp
-// 		.src( config.partialsSrc )
-// 		.pipe( $.plumber( { errorHandler: onError } ) )
-// 		.pipe( $.cached( 'partials' ) )
-// 		.pipe( $.debug( { title: 'partials:cached' } ) )
-// 		.pipe( $.if( config.jshint, $.jshint() ) )
-// 		.pipe( $.if( config.jshint, $.jshint.reporter( 'jshint-stylish' ) ) )
-// 		.pipe( $.sourcemaps.init() )
-// 		.pipe( $.if( config.babel, $.babel() ) )
-// 		.pipe( $.if( config.uglify, $.uglify() ) )
-// 		.pipe( $.wrap( '//source: <%= file.relative %>\n<%= contents %>' ) )
-// 		.pipe( $.remember( 'partials' ) )
-// 		.pipe( $.debug( { title: 'partials:remembered' } ) )
-// 		.pipe( $.concatUtil( 'app.min.js', { process: removeUseStrict } ) )
-// 		.pipe( $.concatUtil.header('"use strict"\n') )
-// 		.pipe( $.sourcemaps.write( '.' ) )
-// 		.pipe( gulp.dest( config.partialsDest ) );
-//
-// } );
+} );
