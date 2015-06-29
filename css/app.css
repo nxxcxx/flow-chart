@@ -1,10 +1,9 @@
-
-body {
-
+html, body {
    font-family: Sans-serif;
-
+   margin: 0;
+   padding: 0;
+   overflow: hidden
 }
-
 .nodeBox {
    background: red;
    cursor: default;
@@ -16,44 +15,49 @@ body {
    user-select: none;
    position: absolute;
 }
-
-   .nodeBox .head {
-      background: yellow;
-      text-align: center;
-   }
-
-   .nodeBox .bodyLeft {
-      background: green;
-      text-align: left;
-      float: left;
-   }
-      .bodyLeft .item {
-         margin-right: 5px;
-      }
-
-   .nodeBox .bodyRight {
-      background: orange;
-      text-align: right;
-      float: right;
-   }
-      .bodyRight .item {
-         margin-left: 5px;
-      }
-
-
+.nodeBox .head {
+   background: yellow;
+   text-align: center;
+}
+.nodeBox .bodyLeft {
+   background: green;
+   text-align: left;
+   float: left;
+}
+.bodyLeft .item {
+   margin-right: 5px;
+}
+.nodeBox .bodyRight {
+   background: orange;
+   text-align: right;
+   float: right;
+}
+.bodyRight .item {
+   margin-left: 5px;
+}
 li {
    display: block;
 }
-
 ul {
    list-style: none;
    padding: 0px;
    margin: 0px;
 }
-
 .conn {
    background: bisque;
    width: 10px;
    height: 10px;
    display: inline-block;
+}
+#nodeCanvas {
+   position: fixed;
+   top: 0;
+   left: 0;
+   height: 100%;
+   width: 100%;
+   pointer-events: none;
+}
+
+#curve {
+   pointer-events: auto;
 }

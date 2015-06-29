@@ -52741,16 +52741,25 @@ module.exports = uuid;
 'use strict';
 
 global.UUID = require('uuid');
-
 global.$ = require('jquery');
 require('jquery-ui');
 
-require('angular').module('flowApp', []).controller('nodeCtrl', ['$scope', function ($scope) {
+require('angular').module('flowApp', []).controller('nodeCtrl', require('./nC')).directive('node', require('./nD')).directive('sortable', require('./nSD')).directive('connector', require('./nCnD')).directive('connection', require('./nCtD'));
+
+}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+},{"./nC":8,"./nCnD":9,"./nCtD":10,"./nD":11,"./nSD":12,"angular":2,"jquery":4,"jquery-ui":3,"uuid":6}],8:[function(require,module,exports){
+(function (global){
+'use strict';
+
+module.exports = ['$scope', '$rootScope', function ($scope, $rootScope) {
 
    global.scope = $scope;
    $scope.nodes = [];
 
-   // todo $scope.connection = []; // this defines all connection between nodes
+   $scope.selConn = null;
+   $scope.tgtConn = null;
+
+   $scope.connection = [];
 
    var inputs = ['data', 'x', 'y', 'z', 'w', 'uv', 'mat4', 'vec2', 'color', 'geometry', 'vector3', 'buffer', 'mesh', 'material'];
 
@@ -52773,54 +52782,57 @@ require('angular').module('flowApp', []).controller('nodeCtrl', ['$scope', funct
       return node;
    };
 
+   $scope.$on('startConn', function (e, data) {
+
+      $scope.selConn = data;
+      e.stopPropagation();
+   });
+   $scope.$on('endConn', function (e, data) {
+
+      $scope.tgtConn = data;
+
+      if ($scope.selConn !== null && $scope.tgtConn !== null && $scope.selConn.uuid !== $scope.tgtConn.uuid) {
+
+         var pair = [$scope.selConn, $scope.tgtConn];
+         // console.log( pair );
+         // todo dont add dulplicate conn
+         $scope.connection.push(pair);
+         $scope.$apply();
+      }
+
+      //reset
+      $scope.selConn = null;
+      $scope.tgtConn = null;
+      e.stopPropagation();
+   });
+
+   $scope.$on('updateConnArray', function (e, conn) {
+
+      $scope.connection.forEach(function (pair) {
+
+         if (conn.uuid === pair[0].uuid) {
+
+            pair[0] = conn;
+            $scope.$apply();
+         }
+         if (conn.uuid === pair[1].uuid) {
+
+            pair[1] = conn;
+            $scope.$apply();
+         }
+      });
+   });
+
    $scope.range = function (n) {
       return new Array(n);
    };
-}]).directive('node', function () {
+}];
 
-   return {
+}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+},{}],9:[function(require,module,exports){
+'use strict';
 
-      restrict: 'E',
-      templateUrl: './template/node.html',
-      replace: true,
-      scope: {
-         nodeObject: '='
-      },
-      link: function link(scope, elem, attr, ctrl) {
-
-         $(elem).draggable();
-      },
-      controller: function controller($scope, $element, $attrs, $transclude) {
-
-         $scope.handleDragEvent = function (eventType) {
-
-            $($element).draggable(eventType);
-            // console.log( `drag ${eventType}d.` );
-         };
-      }
-
-   };
-}).directive('sortable', function () {
-
-   return {
-
-      restrict: 'A',
-      scope: true,
-      link: function link(scope, elem, attr, ctrl) {
-
-         $(elem).sortable();
-      },
-      controller: function controller($scope, $element, $attrs, $transclude) {
-
-         $scope.handleSortEvent = function (eventType) {
-
-            $($element).sortable(eventType);
-            // console.log( `sort ${eventType}d.` );
-         };
-      }
-
-   };
-}).directive('connector', function () {
+module.exports = function () {
 
    return {
 
@@ -52840,17 +52852,186 @@ require('angular').module('flowApp', []).controller('nodeCtrl', ['$scope', funct
 
             scope.notifyDragHandler({ eventType: 'enable' });
             scope.notifySortHandler({ eventType: 'enable' });
-         }).on('mouseover', function (e) {
+         }).on('mouseover', function (e) {}).on('mousedown', function (e) {
 
-            console.log($(elem).parent().text().trim(), scope.uuid);
+            scope.startConn();
+         }).on('mouseup', function (e) {
+
+            scope.endConn();
          });
       },
-      controller: function controller($scope, $element, $attrs, $transclude) {}
+      controller: function controller($scope, $element, $attrs, $transclude) {
+
+         $scope.updateConn = function () {
+
+            $scope.conn = {
+
+               name: $($element).parent().text().trim(),
+               uuid: $scope.uuid,
+               position: $($element).offset()
+
+            };
+         };
+
+         $scope.startConn = function () {
+
+            $scope.updateConn();
+            $scope.$emit('startConn', $scope.conn);
+         };
+
+         $scope.endConn = function () {
+
+            $scope.updateConn();
+            $scope.$emit('endConn', $scope.conn);
+         };
+
+         $scope.$on('connectionNeedsUpdate', function (e, node) {
+
+            $scope.updateConn();
+            $scope.$emit('updateConnArray', $scope.conn);
+         });
+      }
 
    };
-});
+};
 
-}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"angular":2,"jquery":4,"jquery-ui":3,"uuid":6}]},{},[7]);
+},{}],10:[function(require,module,exports){
+'use strict';
+
+module.exports = function () {
+
+   return {
+
+      restrict: 'E',
+      templateNamespace: 'svg',
+      template: '<path ng-attr-d="M{{start.x}},{{start.y}} C{{cp1.x}},{{cp1.y}} {{cp2.x}},{{cp2.y}} {{end.x}},{{end.y}}" id="curve"/>',
+      replace: true,
+      scope: {
+         pair: '='
+      },
+      controller: function controller($scope) {
+
+         $scope.updateConnection = function () {
+
+            var off = 5;
+
+            $scope.start = {
+               x: $scope.pair[0].position.left + off,
+               y: $scope.pair[0].position.top + off
+            };
+            $scope.end = {
+               x: $scope.pair[1].position.left + off,
+               y: $scope.pair[1].position.top + off
+            };
+
+            //todo sort inp/opt cp side
+            var cpOffset = Math.abs($scope.start.x - $scope.end.x) * 0.5;
+            // cpOffset = cpOffset < 50 ? 50 : cpOffset * 0.5;
+
+            $scope.cp1 = {
+               x: $scope.start.x + cpOffset,
+               y: $scope.start.y
+            };
+            $scope.cp2 = {
+               x: $scope.end.x - cpOffset,
+               y: $scope.end.y
+            };
+         };
+
+         $scope.$watch('pair', function (newValue, oldValue) {
+
+            $scope.updateConnection();
+         }, true);
+      }
+
+   };
+};
+
+},{}],11:[function(require,module,exports){
+'use strict';
+
+module.exports = function () {
+
+   return {
+
+      restrict: 'E',
+      templateUrl: './template/node.html',
+      replace: true,
+      scope: {
+         nodeObject: '='
+      },
+      link: function link(scope, elem, attr, ctrl) {
+
+         $(elem).draggable({});
+      },
+      controller: function controller($scope, $element, $attrs, $transclude) {
+
+         var dragging = false;
+
+         $scope.handleDragEvent = function (eventType) {
+
+            $($element).draggable(eventType);
+            // console.log( `drag ${eventType}d.` );
+         };
+
+         // updateConnection on drag
+
+         $($element).on('drag dragstart dragstop', function (e) {
+            // setTimeout hack to fix connector position not update properly
+            // why? http://stackoverflow.com/questions/779379/why-is-settimeoutfn-0-sometimes-useful
+            setTimeout(function () {
+               return $scope.$broadcast('connectionNeedsUpdate', $scope.nodeObject);
+            }, 0);
+         });
+
+         $scope.$on('sortUpdate', function (e) {
+
+            setTimeout(function () {
+               return $scope.$broadcast('connectionNeedsUpdate', $scope.nodeObject);
+            }, 0);
+            e.stopPropagation();
+         });
+      }
+
+   };
+};
+
+// zIndex: 100
+// refreshPositions: true
+// grid: [ 10, 10 ]
+
+},{}],12:[function(require,module,exports){
+'use strict';
+
+module.exports = function () {
+
+   return {
+
+      restrict: 'A',
+      scope: true,
+      link: function link(scope, elem, attr, ctrl) {
+
+         $(elem).sortable();
+
+         $(elem).on('sort sortupdate sortstop', function (e) {
+
+            setTimeout(function () {
+               return scope.$emit('sortUpdate');
+            }, 0);
+         });
+      },
+      controller: function controller($scope, $element, $attrs, $transclude) {
+
+         $scope.handleSortEvent = function (eventType) {
+
+            $($element).sortable(eventType);
+            // console.log( `sort ${eventType}d.` );
+         };
+      }
+
+   };
+};
+
+},{}]},{},[7]);
 
 //# sourceMappingURL=app.js.map

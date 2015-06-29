@@ -11,8 +11,16 @@
 
 <body ng-controller="nodeCtrl">
 
+
+
 	<button ng-click="generateNode()">Add Node</button>
 	<node ng-repeat="n in nodes" node-object="n"></node>
+
+	<svg id="nodeCanvas">
+		<g fill="none" stroke-width="1.5" stroke="black">
+			<connection ng-repeat="pair in connection" pair="pair"></connection>
+		</g>
+	</svg>
 
 	<script src="build/app.js"></script>
 
