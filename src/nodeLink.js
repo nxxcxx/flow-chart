@@ -1,6 +1,6 @@
 function controller( $scope ) {
 
-   function updateConnection() {
+	function updateConnection() {
 
 		var off = 5;
 
@@ -13,15 +13,14 @@ function controller( $scope ) {
 			y: $scope.pair[ 1 ].position.top + off
 		};
 
-		//todo sort inp/opt cp side
 		var cpOffset = Math.abs( $scope.start.x - $scope.end.x ) * 0.5;
 
 		$scope.cp1 = {
-			x: $scope.start.x + cpOffset,
+			x: $scope.start.x - cpOffset,
 			y: $scope.start.y
 		};
 		$scope.cp2 = {
-			x: $scope.end.x - cpOffset,
+			x: $scope.end.x + cpOffset,
 			y: $scope.end.y
 		};
 

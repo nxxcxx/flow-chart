@@ -1,11 +1,39 @@
 html, body {
    font-family: Sans-serif;
-   margin: 0;
-   padding: 0;
-   overflow: hidden;
+   margin: 0px;
+   padding: 0px;
+   height: 100%;
+}
+#leftView {
+   background: #DCDCDC;
+}
+#rightView {
+   background: #E6E6FA;
+}
+.container-fluid {
+   padding: 0px;
+   display: table;
+   border-spacing: 1px;
+}
+.row {
+   height: 100%;
+   display: table-row;
+}
+.col-md-3.no-float, .col-md-9.no-float {
+   padding: 0px;
+   float: none;
+}
+.col-md-3 {
+   display: table-cell;
+   background: pink;
+}
+.col-md-9 {
+   display: table-cell;
+   background: yellow;
+   float: none;
 }
 .nodeBox {
-   background: red;
+   background: rgb(52, 52, 52);
    cursor: default;
    -webkit-touch-callout: none;
    -webkit-user-select: none;
@@ -14,50 +42,58 @@ html, body {
    -ms-user-select: none;
    user-select: none;
    position: absolute;
+   border-radius: 5px;
 }
 .nodeBox .head {
-   background: yellow;
+   border-radius: 5px 5px 0px 0px;
+   background: rgb(72, 140, 196);
    text-align: center;
 }
 .nodeBox .bodyLeft {
-   background: green;
+   background: rgb(36, 170, 141);
    text-align: left;
    float: left;
+   border-radius: 0px 0px 0px 5px;
 }
 .bodyLeft .item {
    margin-right: 5px;
 }
 .nodeBox .bodyRight {
-   background: orange;
+   background: rgb(246, 138, 85);
    text-align: right;
    float: right;
+   border-radius: 0px 0px 5px 0px;
 }
 .bodyRight .item {
    margin-left: 5px;
-}
-li {
-   display: block;
 }
 ul {
    list-style: none;
    padding: 0px;
    margin: 0px;
 }
+li {
+   display: block;
+}
 .conn {
-   background: bisque;
-   width: 10px;
+   background: rgb(78, 85, 89);
+   width: 15px;
    height: 10px;
    display: inline-block;
+   vertical-align: middle;
+}
+.conn-left {
+   border-radius: 0px 2px 2px 0px;
+}
+.conn-right {
+   border-radius: 2px 0px 0px 2px;
 }
 #nodeCanvas {
-   position: fixed;
-   top: 0;
-   left: 0;
    height: 100%;
    width: 100%;
    pointer-events: none;
+   display: block;
 }
-
 #curve {
    pointer-events: auto;
 }

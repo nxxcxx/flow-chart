@@ -1,20 +1,20 @@
 
 function controller( $scope, $element ) {
 
-   $( $element ).draggable();
+   $element.draggable();
 
    $scope.broadcastUpdateConn = () => {
       setTimeout( () => $scope.$broadcast( 'connectionNeedsUpdate' ), 0 );
    };
 
-   $( $element ).on( 'drag dragstart dragstop', $scope.broadcastUpdateConn );
+   $element.on( 'drag dragstart dragstop', $scope.broadcastUpdateConn );
 
    this.enableDrag = () => {
-      $( $element ).draggable( 'enable' );
+      $element.draggable( 'enable' );
       // console.log( 'drag enabled.' );
    };
    this.disableDrag = () => {
-      $( $element ).draggable( 'disable' );
+      $element.draggable( 'disable' );
       // console.log( 'drag disabled.' );
    };
 

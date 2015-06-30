@@ -2,17 +2,17 @@
 
    <div class="head">{{nodeObject.title}}</div>
 
-   <ul sortable class="bodyLeft">
-      <li class="item" ng-repeat="input in nodeObject.input">
-         <connector class="conn" uuid="input.uuid"></connector>
+   <ul node-item class="bodyLeft">
+      <li class="item" ng-repeat="input in nodeObject.input track by input.uuid">
+         <node-connector class="conn conn-left" input="input" uuid="input.uuid"></node-connector>
          {{ input.name }}
       </li>
    </ul>
 
-   <ul sortable class="bodyRight">
-      <li class="item" ng-repeat="output in nodeObject.output">
+   <ul node-item class="bodyRight">
+      <li class="item" ng-repeat="output in nodeObject.output track by output.uuid">
          {{ output.name }}
-         <connector class="conn" uuid="output.uuid"></connector>
+         <node-connector class="conn conn-right" output="output" uuid="output.uuid"></node-connector>
       </li>
    </ul>
 

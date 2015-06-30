@@ -4,7 +4,7 @@ function link( $scope, $element, $attrs, $controller ) {
    var nodeDirCtrl = $controller[ 0 ];
    var nodeSortCtrl = $controller[ 1 ];
 
-   $( $element )
+   $element
    .on( 'mouseenter', e  => {
       nodeDirCtrl.disableDrag();
       nodeSortCtrl.disableSort();
@@ -20,15 +20,20 @@ function link( $scope, $element, $attrs, $controller ) {
       $scope.endConn();
    } );
 
-   var conn = {};
+   var conn = $scope.input ? $scope.input : $scope.output;
+   conn.type = $scope.input ? 0 : 1;
+
    updateConn();
    function updateConn() {
 
-      conn.name = $( $element ).parent().text().trim();
-      conn.uuid = $scope.uuid;
-      conn.position = $( $element ).offset();
+      conn.position = $element.offset();
+      conn.position.left -= $( '#nodeCanvas' ).offset().left;
+      conn.position.top -= $( '#nodeCanvas' ).offset().top;
 
    }
+
+
+
 
    $scope.startConn = () => {
 
@@ -58,12 +63,18 @@ module.exports = () => {
    return {
 
       restrict: 'E',
-      require: [ '^node', '^sortable' ],  // todo change name to nodeContainer? & nodeItem?
+      require: [ '^nodeBox', '^nodeItem' ],
       scope: {
-         uuid: '='
+         uuid: '=',
+
+         input: '=',
+         output: '='
+
       },
       link
 
    };
 
 };
+
+// todo chop directive

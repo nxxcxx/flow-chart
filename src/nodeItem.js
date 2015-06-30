@@ -1,19 +1,20 @@
 
 function link( $scope, $element ) {
 
-   $( $element ).sortable();
-   $( $element ).on( 'sort sortupdate sortstop', $scope.broadcastUpdateConn );
+   $element.sortable( {
+   } );
+   $element.on( 'sort sortupdate sortstop', $scope.broadcastUpdateConn );
 
 }
 
 function controller( $scope, $element ) {
 
    this.enableSort = () => {
-      $( $element ).sortable( 'enable' );
+      $element.sortable( 'enable' );
       // console.log( 'sort enabled.' );
    };
    this.disableSort = () => {
-      $( $element ).sortable( 'disable' );
+      $element.sortable( 'disable' );
       // console.log( 'sort disabled.' );
    };
 
