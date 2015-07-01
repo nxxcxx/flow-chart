@@ -1,17 +1,15 @@
 
-function link( $scope, $element, $attrs, $controller ) {
+function link( $scope, $element, $attrs, $controllers ) {
 
-   var nodeDirCtrl = $controller[ 0 ];
-   var nodeSortCtrl = $controller[ 1 ];
+   var svgPannableCtrl = $controllers[ 0 ];
+   var nodeBoxCtrl = $controllers[ 1 ];
 
    $element
    .on( 'mouseenter', e  => {
-      nodeDirCtrl.disableDrag();
-      nodeSortCtrl.disableSort();
+      svgPannableCtrl.disableDrag();
    } )
    .on( 'mouseleave', e => {
-      nodeDirCtrl.enableDrag();
-      nodeSortCtrl.enableSort();
+      svgPannableCtrl.enableDrag();
    } )
    .on( 'mousedown', e => {
       $scope.startConn();
@@ -20,16 +18,28 @@ function link( $scope, $element, $attrs, $controller ) {
       $scope.endConn();
    } );
 
-   var conn = $scope.input ? $scope.input : $scope.output;
+
+   var temp = $scope.input ? $scope.input : $scope.output;
+   var conn = {};
+   conn.uuid = temp.uuid;
+   conn.name = temp.name;
    conn.type = $scope.input ? 0 : 1;
    conn.parentUUID = $scope.parentNode.uuid;
 
+   nodeBoxCtrl.setMaxConn( parseInt( $attrs.index ) + 1 );
+   nodeBoxCtrl.computeHeight();
+
+
    updateConn();
    function updateConn() {
+      
+      var yOff = parseInt( $attrs.index ) * nodeBoxCtrl.getRowHeight() +
+      nodeBoxCtrl.getHeaderHeight() + nodeBoxCtrl.getConnHeightOffset() + nodeBoxCtrl.getConnHeight() * 0.5;
 
-      conn.position = $element.offset();
-      conn.position.left -= $( '#nodeCanvas' ).offset().left;
-      conn.position.top -= $( '#nodeCanvas' ).offset().top;
+      conn.position = {
+         left: svgPannableCtrl.position.x + ( conn.type ? nodeBoxCtrl.getWidth() : 0 ),
+         top: svgPannableCtrl.position.y + yOff
+      };
 
    }
    $scope.startConn = () => {
@@ -46,11 +56,8 @@ function link( $scope, $element, $attrs, $controller ) {
 
    };
 
-   $scope.$on( 'connectionNeedsUpdate', () => {
-
+   $scope.$on( 'updateConnectionNOW!!', () => {
       updateConn();
-      $scope.$apply();
-
    } );
 
 }
@@ -59,8 +66,8 @@ module.exports = () => {
 
    return {
 
-      restrict: 'E',
-      require: [ '^nodeBox', '^nodeItem' ],
+      restrict: 'AE',
+      require: [ '^svgPannable', '^nodeBox' ],
       scope: {
          parentNode: '=',
          input: '=',
@@ -71,5 +78,3 @@ module.exports = () => {
    };
 
 };
-
-// todo chop directive

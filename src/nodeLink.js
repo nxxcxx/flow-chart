@@ -2,15 +2,13 @@ function controller( $scope ) {
 
 	function updateConnection() {
 
-		var off = 5;
-
 		$scope.start = {
-			x: $scope.pair[ 0 ].position.left + off,
-			y: $scope.pair[ 0 ].position.top + off
+			x: $scope.pair[ 0 ].position.left,
+			y: $scope.pair[ 0 ].position.top
 		};
 		$scope.end = {
-			x: $scope.pair[ 1 ].position.left + off,
-			y: $scope.pair[ 1 ].position.top + off
+			x: $scope.pair[ 1 ].position.left,
+			y: $scope.pair[ 1 ].position.top
 		};
 
 		var cpOffset = Math.abs( $scope.start.x - $scope.end.x ) * 0.5;
@@ -26,7 +24,7 @@ function controller( $scope ) {
 
 	}
 
-	$scope.$watch( 'pair', updateConnection, true );
+	$scope.$watch( 'pair', updateConnection , true );
 
 }
 

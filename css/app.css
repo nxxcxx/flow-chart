@@ -6,7 +6,6 @@ html, body {
 }
 
 .container {
-   position: absolute;
    width: 100%;
    height: 100%;
 }
@@ -18,16 +17,16 @@ html, body {
 
 .view.left {
    background: #DCDCDC;
-   width: 25%;
+   width: 45%;
+   overflow-y: scroll;
 }
 
 .view.right {
    background: #E6E6FA;
-   width: 75%;
+   width: 55%;
 }
 
 .nodeBox {
-   background: rgb(52, 52, 52);
    cursor: default;
    -webkit-touch-callout: none;
    -webkit-user-select: none;
@@ -35,8 +34,6 @@ html, body {
    -moz-user-select: none;
    -ms-user-select: none;
    user-select: none;
-   position: absolute;
-   border-radius: 5px;
 }
 
 .nodeBox .head {
@@ -101,4 +98,10 @@ li {
 
 #curve {
    pointer-events: auto;
+}
+
+pre {
+   white-space: pre-wrap;
+   margin: 0px;
+   border: 2px solid rgb(0, 149, 255);
 }

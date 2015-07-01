@@ -31,6 +31,8 @@ function link( $scope, $element, $attrs ) {
 
       if ( ss < minz || ss > maxz ) return;
 
+      $scope.$broadcast( 'zoomed', ss );
+
       $element.attr( 'transform', `matrix(${ss},${mat[1]},${mat[2]},${ss},${xx},${yy})` );
 
    } );

@@ -22,31 +22,36 @@
 		<div class="view left">
 
 			<button ng-click="generateNode()">Add Node</button>
+			<br> Nodes
+			<pre>{{nodes | json }}</pre>
+			<br> Connection
+			<pre>{{connection | json }}</pre>
 
 		</div>
 
 		<div class="view right">
 
-			<node-box ng-repeat="n in nodes" node-object="n"></node-box>
-
 			<svg id="nodeCanvas">
-				<g fill="none" stroke-width="1.25" stroke="black" handler="#nodeCanvas" svg-pannable svg-zoomable>
-					<rect x="50" y="50" width="50" height="50" />
-					<rect x="100" y="100" width="50" height="50" />
-					<node-link ng-repeat="pair in connection" pair="pair"></node-link>
-				</g>
+
+				<rect id="control" fill="rgb(204, 222, 241)" width="100%" height="100%"></rect>
+
+				<g handler="#control" svg-pannable svg-zoomable>
+
+					<!-- nodes -->
+					<node-box ng-repeat="n in nodes" node-object="n"></node-box>
+
+					<!-- connections -->
+					<g fill="none" stroke-width="1.25" stroke="black">
+						<node-link ng-repeat="pair in connection" pair="pair"></node-link>
+					</g>
+
+				</g>			
+
 			</svg>
 
 		</div>
+
 	</div>
-
-
-	<!-- <svg id="testSvg" style="display: block; background: crimson; width: 100%; height: 100%;">
-		<g svg-pannable svg-zoomable handler="#testSvg">
-			<rect x="50" y="50" width="50" height="50" />
-			<rect x="100" y="100" width="50" height="50" />
-		</g>
-	</svg> -->
 
 </body>
 

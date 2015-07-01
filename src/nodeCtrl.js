@@ -20,7 +20,6 @@ module.exports = [ '$scope', '$rootScope', ( $scope, $rootScope ) => {
       };
 
       $scope.nodes.push( node );
-      return node;
 
       function genItems() {
          var res = [];
@@ -31,7 +30,16 @@ module.exports = [ '$scope', '$rootScope', ( $scope, $rootScope ) => {
       }
 
    };
+   $scope.generateNode();
 
+   $scope.NEED_MORE_NODES = n => {
+      for( let i = 0; i < n; i ++ ) {
+         $scope.generateNode();
+         console.log( 1 );
+      }
+      $scope.$apply();
+      console.log( 'done' );
+   };
 
    // store which conn is initiator
    var iniConn = null;
