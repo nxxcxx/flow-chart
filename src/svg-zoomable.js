@@ -31,8 +31,7 @@ function link( $scope, $element, $attrs ) {
 
       if ( ss < minz || ss > maxz ) return;
 
-      var newMat = `matrix(${ss},${mat[1]},${mat[2]},${ss},${xx},${yy})`;
-      $element.attr( 'transform', newMat );
+      $element.attr( 'transform', `matrix(${ss},${mat[1]},${mat[2]},${ss},${xx},${yy})` );
 
    } );
 

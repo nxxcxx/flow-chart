@@ -40,8 +40,7 @@ function link( $scope, $element, $attrs ) {
          var newX = mat[ 4 ] + dx;
          var newY = mat[ 5 ] + dy;
 
-         var newMat = `matrix(${mat[0]},${mat[1]},${mat[2]},${mat[3]},${newX},${newY})`;
-         $element.attr( 'transform', newMat );
+         $element.attr( 'transform', `matrix(${mat[0]},${mat[1]},${mat[2]},${mat[3]},${newX},${newY})` );
 
       }
 
