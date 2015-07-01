@@ -22,6 +22,7 @@ function link( $scope, $element, $attrs, $controller ) {
 
    var conn = $scope.input ? $scope.input : $scope.output;
    conn.type = $scope.input ? 0 : 1;
+   conn.parentUUID = $scope.parentNode.uuid;
 
    updateConn();
    function updateConn() {
@@ -31,10 +32,6 @@ function link( $scope, $element, $attrs, $controller ) {
       conn.position.top -= $( '#nodeCanvas' ).offset().top;
 
    }
-
-
-
-
    $scope.startConn = () => {
 
       updateConn();
@@ -65,11 +62,9 @@ module.exports = () => {
       restrict: 'E',
       require: [ '^nodeBox', '^nodeItem' ],
       scope: {
-         uuid: '=',
-
+         parentNode: '=',
          input: '=',
          output: '='
-
       },
       link
 

@@ -4,7 +4,7 @@
 
    <ul node-item class="bodyLeft">
       <li class="item" ng-repeat="input in nodeObject.input track by input.uuid">
-         <node-connector class="conn conn-left" input="input" uuid="input.uuid"></node-connector>
+         <node-connector class="conn conn-left" input="input" parent-node="nodeObject"></node-connector>
          {{ input.name }}
       </li>
    </ul>
@@ -12,7 +12,7 @@
    <ul node-item class="bodyRight">
       <li class="item" ng-repeat="output in nodeObject.output track by output.uuid">
          {{ output.name }}
-         <node-connector class="conn conn-right" output="output" uuid="output.uuid"></node-connector>
+         <node-connector class="conn conn-right" output="output" parent-node="nodeObject"></node-connector>
       </li>
    </ul>
 

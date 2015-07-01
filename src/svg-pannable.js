@@ -1,5 +1,3 @@
-// jshint -W014
-
 function link( $scope, $element, $attrs ) {
 
    if ( !$element.attr( 'transform' ) ) {
@@ -13,7 +11,7 @@ function link( $scope, $element, $attrs ) {
    var mat = null;
    var numPattern = /[\d|\.|\+|-]+/g;
 
-   $( '#testSvg' )
+   $( $attrs.handler )
    .on( 'mousedown', e => {
 
       mousehold = true;

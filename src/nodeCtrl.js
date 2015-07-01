@@ -49,7 +49,11 @@ module.exports = [ '$scope', '$rootScope', ( $scope, $rootScope ) => {
       endConn = conn;
 
       // register connection
-      if ( iniConn !== null && endConn !== null && iniConn.uuid !== endConn.uuid ) {
+      if (
+         iniConn !== null && endConn !== null &&
+         iniConn.uuid !== endConn.uuid &&
+         iniConn.parentUUID !== endConn.parentUUID
+      ) {
 
          if ( iniConn.type !== endConn.type ) {
 
