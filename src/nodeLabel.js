@@ -1,13 +1,17 @@
-
 module.exports = [ '$timeout', ( $timeout ) => {
 
    function link( $scope, $element, $attrs, $controllers ) {
 
-      var nodeBoxCtrl = $controllers[ 0 ];
+      var nodeCtrl = $controllers[ 0 ];
 
       $timeout( () => {
-         nodeBoxCtrl.setLabelWidth( $element[ 0 ].getComputedTextLength() );
-         nodeBoxCtrl.computeWidth();
+
+         nodeCtrl.setMaxLabelWidth( $element[ 0 ].getComputedTextLength() );
+         if ( $scope.$last ) {
+            nodeCtrl.computeWidth();
+            $scope.$broadcast( 'connectionNeedsUpdate' );
+         }
+
       } );
 
    }

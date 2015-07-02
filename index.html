@@ -38,14 +38,14 @@
 				<g handler="#control" svg-pannable svg-zoomable>
 
 					<!-- nodes -->
-					<node-box ng-repeat="n in nodes" node-object="n"></node-box>
+					<node-box ng-repeat="n in nodes track by n.uuid" node-object="n"></node-box>
 
 					<!-- connections -->
 					<g fill="none" stroke-width="1.25" stroke="black">
 						<node-link ng-repeat="pair in connection" pair="pair"></node-link>
 					</g>
 
-				</g>			
+				</g>
 
 			</svg>
 

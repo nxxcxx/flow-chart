@@ -72,8 +72,6 @@ module.exports = [ '$scope', '$rootScope', ( $scope, $rootScope ) => {
             if ( !isDuplicate( pair[ 0 ], pair[ 1 ] ) ) {
                $scope.connection.push( pair );
                $scope.$apply();
-            } else {
-               console.log( 'dupes conn' );
             }
 
          }

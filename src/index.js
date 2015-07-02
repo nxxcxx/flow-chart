@@ -7,5 +7,7 @@ angular.module( 'nodeApp', [] )
 	.directive( 'nodeLabel', require( './nodeLabel' ) )
 	.directive( 'nodeConnector', require( './nodeConnector' ) )
 	.directive( 'nodeLink', require( './nodeLink' ) )
+	.directive( 'nodeSortable', require( './nodeSortable' ) )
+	.directive( 'nodeSortItem', require( './nodeSortItem' ) )
 	.directive( 'svgPannable', require( './svg-pannable' ) )
 	.directive( 'svgZoomable', require( './svg-zoomable' ) );

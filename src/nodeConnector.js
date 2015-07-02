@@ -1,75 +1,63 @@
+module.exports = [ () => {
 
-function link( $scope, $element, $attrs, $controllers ) {
+   function link( $scope, $element, $attrs, $controllers ) {
 
-   var svgPannableCtrl = $controllers[ 0 ];
-   var nodeBoxCtrl = $controllers[ 1 ];
+      var dragCtrl = $controllers[ 0 ];
+      var nodeCtrl = $controllers[ 1 ];
+      var sortCtrl = $controllers[ 2 ];
 
-   $element
-   .on( 'mouseenter', e  => {
-      svgPannableCtrl.disableDrag();
-   } )
-   .on( 'mouseleave', e => {
-      svgPannableCtrl.enableDrag();
-   } )
-   .on( 'mousedown', e => {
-      $scope.startConn();
-   } )
-   .on( 'mouseup', e => {
-      $scope.endConn();
-   } );
+      $element
+      .on( 'mouseenter', e  => {
+         dragCtrl.disableDrag();
+         sortCtrl.disableSort();
+      } )
+      .on( 'mouseleave', e => {
+         dragCtrl.enableDrag();
+         sortCtrl.enableSort();
+      } )
+      .on( 'mousedown', e => {
+         startConn();
+      } )
+      .on( 'mouseup', e => {
+         endConn();
+      } );
 
+      var io = $scope.input ? $scope.input : $scope.output;
+      var conn = {};
+      conn.uuid = io.uuid;
+      conn.name = io.name;
+      conn.type = $scope.input ? 0 : 1;
+      conn.parentUUID = $scope.parentUuid;
 
-   var temp = $scope.input ? $scope.input : $scope.output;
-   var conn = {};
-   conn.uuid = temp.uuid;
-   conn.name = temp.name;
-   conn.type = $scope.input ? 0 : 1;
-   conn.parentUUID = $scope.parentNode.uuid;
+      updateConn();
 
-   nodeBoxCtrl.setMaxConn( parseInt( $attrs.index ) + 1 );
-   nodeBoxCtrl.computeHeight();
+      $scope.$on( 'connectionNeedsUpdate', () => {
+         updateConn();
+      } );
 
+      function updateConn() {
+         var yOff = parseInt( $attrs.index ) * nodeCtrl.getRowHeight() + nodeCtrl.getHeaderHeight() + nodeCtrl.getConnHeightOffset() + nodeCtrl.getConnHeight() * 0.5;
 
-   updateConn();
-   function updateConn() {
-      
-      var yOff = parseInt( $attrs.index ) * nodeBoxCtrl.getRowHeight() +
-      nodeBoxCtrl.getHeaderHeight() + nodeBoxCtrl.getConnHeightOffset() + nodeBoxCtrl.getConnHeight() * 0.5;
-
-      conn.position = {
-         left: svgPannableCtrl.position.x + ( conn.type ? nodeBoxCtrl.getWidth() : 0 ),
-         top: svgPannableCtrl.position.y + yOff
-      };
+         conn.position = {
+            left: dragCtrl.position.x + ( conn.type ? nodeCtrl.getWidth() : 0 ),
+            top: dragCtrl.position.y + yOff
+         };
+      }
+      function startConn() {
+         $scope.$emit( 'startConn', conn );
+      }
+      function endConn() {
+         $scope.$emit( 'endConn', conn );
+      }
 
    }
-   $scope.startConn = () => {
-
-      updateConn();
-      $scope.$emit( 'startConn', conn );
-
-   };
-
-   $scope.endConn = () => {
-
-      updateConn();
-      $scope.$emit( 'endConn', conn );
-
-   };
-
-   $scope.$on( 'updateConnectionNOW!!', () => {
-      updateConn();
-   } );
-
-}
-
-module.exports = () => {
 
    return {
 
       restrict: 'AE',
-      require: [ '^svgPannable', '^nodeBox' ],
+      require: [ '^svgPannable', '^nodeBox', '^nodeSortable' ],
       scope: {
-         parentNode: '=',
+         parentUuid: '@',
          input: '=',
          output: '='
       },
@@ -77,4 +65,4 @@ module.exports = () => {
 
    };
 
-};
+} ];
