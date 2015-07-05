@@ -1,67 +1,79 @@
 <g svg-pannable class="nodeBox" >
 
-   <rect box fill="#ff3939" x="0" y="0" ng-attr-width="{{ width }}" ng-attr-height="{{ height }}" />
+   <rect box fill="#999999" x="0" y="0" ng-attr-width="{{ width }}" ng-attr-height="{{ height }}" />
 
    <rect header
-      fill="#39b2ff" x="0" y="0" ng-attr-width="{{ width }}" ng-attr-height="{{ headerHeight }}" />
+      fill="#777777" x="0" y="0" ng-attr-width="{{ width }}" ng-attr-height="{{ headerHeight }}" />
    <text headerText
-      ng-attr-x="{{ width * 0.5 }}"
+      ng-attr-x="{{ 5 }}"
       ng-attr-y="{{ headerHeight * 0.5 }}"
-      style="text-anchor: middle; font-size: 15px; font-style: bold; alignment-baseline: central;">
+      text-anchor="start"
+      style="font-size: 14px; font-style: bold; alignment-baseline: central;">
       {{ nodeObject.title }}
+   </text>
+   <text executionOrder
+      ng-attr-x="{{ width - 5 }}"
+      ng-attr-y="{{ headerHeight * 0.5 }}"
+      text-anchor="end"
+      style="font-size: 14px; font-style: bold; alignment-baseline: central;">
+      {{ nodeObject.order }}
    </text>
 
    <g node-sortable>
-      <g node-sort-item ng-repeat="input in nodeObject.input track by input.uuid">
-         <rect item
-            fill="#00dda8"
-            x="0"
-            ng-attr-y="{{ $index * rowHeight + headerHeight }}"
-            ng-attr-width="{{ width * 0.5 }}"
-            ng-attr-height="{{ rowHeight }}"/>
-         <rect node-connector
-            fill="#000000"
-            index="{{ $index }}"
-            input="input"
-            parent-uuid="{{ nodeObject.uuid }}"
-            x="0"
-            ng-attr-y="{{ $index * rowHeight + headerHeight + connHeightOffset }}"
-            ng-attr-width="{{ connWidth }}"
-            ng-attr-height="{{ connHeight }}"/>
-         <text node-label
-            ng-attr-x="{{ connWidth + labelSpacing }}"
-            ng-attr-y="{{ $index * rowHeight + headerHeight + ( rowHeight * 0.5 ) }}"
-            text-anchor="start"
-            style="font-size: 14px; alignment-baseline: middle;">
-            {{ input.name }}
-         </text>
+      <g node-sort-item
+         ng-attr-transform="translate( 0, {{ offsetInput }} )"
+         ng-repeat="input in nodeObject.input track by input.uuid">
+            <rect item
+               fill="#999999"
+               x="0"
+               ng-attr-y="{{ $index * rowHeight + headerHeight }}"
+               ng-attr-width="{{ width * 0.5 }}"
+               ng-attr-height="{{ rowHeight }}"/>
+            <rect node-connector
+               fill="#000000"
+               index="{{ $index }}"
+               input="input"
+               parent-uuid="{{ nodeObject.uuid }}"
+               ng-attr-x="{{ connWidthOffset }}"
+               ng-attr-y="{{ $index * rowHeight + headerHeight + connHeightOffset }}"
+               ng-attr-width="{{ connWidth }}"
+               ng-attr-height="{{ connHeight }}"/>
+            <text node-label
+               ng-attr-x="{{ connWidth + labelSpacing }}"
+               ng-attr-y="{{ $index * rowHeight + headerHeight + ( rowHeight * 0.5 ) }}"
+               text-anchor="start"
+               style="font-size: 14px; alignment-baseline: middle;">
+               {{ input.name }}
+            </text>
       </g>
    </g>
 
    <g node-sortable>
-      <g node-sort-item ng-repeat="output in nodeObject.output track by output.uuid" >
-         <rect item
-            fill="#ffdf39"
-            ng-attr-x="{{ width * 0.5 }}"
-            ng-attr-y="{{ $index * rowHeight + headerHeight }}"
-            ng-attr-width="{{ width * 0.5 }}"
-            ng-attr-height="{{ rowHeight }}" />
-         <rect node-connector
-            fill="#000000"
-            index="{{ $index }}"
-            output="output"
-            parent-uuid="{{ nodeObject.uuid }}"
-            ng-attr-x="{{ width - connWidth}}"
-            ng-attr-y="{{ $index * rowHeight + headerHeight + connHeightOffset }}"
-            ng-attr-width="{{ connWidth }}"
-            ng-attr-height="{{ connHeight }}"/>
-         <text node-label
-            ng-attr-x="{{ width - connWidth - labelSpacing }}"
-            ng-attr-y="{{ $index * rowHeight + headerHeight + ( rowHeight * 0.5 ) }}"
-            text-anchor="end"
-            style="font-size: 14px; alignment-baseline: middle;">
-            {{ output.name }}
-         </text>
+      <g node-sort-item
+         ng-attr-transform="translate( 0, {{ offsetOutput }} )"
+         ng-repeat="output in nodeObject.output track by output.uuid" >
+            <rect item
+               fill="#999999"
+               ng-attr-x="{{ width * 0.5 }}"
+               ng-attr-y="{{ $index * rowHeight + headerHeight }}"
+               ng-attr-width="{{ width * 0.5 }}"
+               ng-attr-height="{{ rowHeight }}" />
+            <rect node-connector
+               fill="#000000"
+               index="{{ $index }}"
+               output="output"
+               parent-uuid="{{ nodeObject.uuid }}"
+               ng-attr-x="{{ width - connWidth - connWidthOffset }}"
+               ng-attr-y="{{ $index * rowHeight + headerHeight + connHeightOffset }}"
+               ng-attr-width="{{ connWidth }}"
+               ng-attr-height="{{ connHeight }}"/>
+            <text node-label
+               ng-attr-x="{{ width - connWidth - labelSpacing }}"
+               ng-attr-y="{{ $index * rowHeight + headerHeight + ( rowHeight * 0.5 ) }}"
+               text-anchor="end"
+               style="font-size: 14px; alignment-baseline: middle;">
+               {{ output.name }}
+            </text>
       </g>
    </g>
 

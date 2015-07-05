@@ -1,47 +1,21 @@
 
-module.exports = [ '$scope', '$rootScope', ( $scope, $rootScope ) => {
+module.exports = [ '$scope', 'nodeFactory', ( $scope, nodeFactory ) => {
 
    global.SCOPE = $scope;
 
-   $scope.nodes = [];
-   $scope.connection = [];
+   $scope.nodeFactory = nodeFactory;
 
-   $scope.generateNode = () => {
-
-      var inputs = [ 'data', 'x', 'y', 'z', 'w', 'uv', 'mat4', 'vec2', 'color', 'geometry', 'vector3', 'buffer', 'mesh', 'material' ];
-
-      var rndInt = n => { return ~~( Math.random() * n ); };
-
-      var node = {
-         title: inputs[ rndInt( inputs.length ) ],
-         uuid: UUID(),
-         input: genItems(),
-         output: genItems()
-      };
-
-      $scope.nodes.push( node );
-
-      function genItems() {
-         var res = [];
-         for ( let i = 0; i < rndInt( 5 ) + 1; i++ ) {
-            res.push( { name: inputs[ rndInt( inputs.length ) ], uuid: UUID() } );
-         }
-         return res;
-      }
-
-   };
-   $scope.generateNode();
+   nodeFactory.generateNode();
 
    $scope.NEED_MORE_NODES = n => {
       for( let i = 0; i < n; i ++ ) {
-         $scope.generateNode();
+         nodeFactory.generateNode();
          console.log( 1 );
       }
       $scope.$apply();
-      console.log( 'done' );
    };
 
-   // store which conn is initiator
+   // handle user interaction with connector
    var iniConn = null;
    var endConn = null;
    $scope.$on( 'startConn', ( e, conn ) => {
@@ -56,7 +30,7 @@ module.exports = [ '$scope', '$rootScope', ( $scope, $rootScope ) => {
       e.stopPropagation();
       endConn = conn;
 
-      // register connection
+      // register conn
       if (
          iniConn !== null && endConn !== null &&
          iniConn.uuid !== endConn.uuid &&
@@ -70,7 +44,8 @@ module.exports = [ '$scope', '$rootScope', ( $scope, $rootScope ) => {
             pair[ endConn.type ] = endConn;
 
             if ( !isDuplicate( pair[ 0 ], pair[ 1 ] ) ) {
-               $scope.connection.push( pair );
+               nodeFactory.connections.push( pair );
+               nodeFactory.computeExecutionOrder();
                $scope.$apply();
             }
 
@@ -86,7 +61,7 @@ module.exports = [ '$scope', '$rootScope', ( $scope, $rootScope ) => {
 
    function isDuplicate( src, tgt ) {
 
-      return $scope.connection.some( pair => pair[ 0 ].uuid === src.uuid && pair[ 1 ].uuid === tgt.uuid );
+      return nodeFactory.connections.some( pair => pair[ 0 ].uuid === src.uuid && pair[ 1 ].uuid === tgt.uuid );
 
    }
 

@@ -1,9 +1,9 @@
 module.exports = [ () => {
 
-	function controller( $scope ) {
+	function link( $scope ) {
 
 		function updateConnection() {
-
+			
 			$scope.start = {
 				x: $scope.pair[ 0 ].position.left,
 				y: $scope.pair[ 0 ].position.top
@@ -39,7 +39,7 @@ module.exports = [ () => {
 		scope: {
 			pair: '='
 		},
-		controller
+		link
 
 	};
 

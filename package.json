@@ -16,6 +16,7 @@
     "jquery": "^2.1.4",
     "jquery-ui": "^1.10.5",
     "throttle-debounce": "^0.1.1",
+    "toposort": "^0.2.10",
     "uuid": "^2.0.1"
   }
 }

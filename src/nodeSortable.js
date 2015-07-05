@@ -16,16 +16,12 @@ module.exports = [ () => {
       this.startSort = n => {
          if ( disabled ) return;
          curr = n;
-         console.log( 'start sort', curr );
       };
 
       this.endSort = n => {
          if ( disabled || !this.sorting ) return;
-
          tgt = n;
-         console.log( 'end sort', tgt );
-         if ( curr !== null && tgt !== null && curr !== tgt ) {
-            console.log( 'swapping:', curr.name, tgt.name );
+         if ( curr !== null && tgt !== null && curr.io !== tgt.io ) {
             swapRow( curr, tgt );
          }
       };
@@ -35,45 +31,14 @@ module.exports = [ () => {
 
       function swapRow( curr, tgt ) {
 
-         var t1;
-         var t2;
-         var io = null;
-         $scope.nodeObject.input.forEach( ( inp, idx ) => {
-            if ( inp.uuid === curr.uuid ) {
-               t1 = idx;
-               io = 0;
-            }
-         } );
-         $scope.nodeObject.output.forEach( ( inp, idx ) => {
-            if ( inp.uuid === curr.uuid ){
-               t1 = idx;
-               io = 1;
-            }
-         } );
+         var type = curr.type === 0 ? 'input' : 'output';
+         var t1 = $scope.nodeObject[ type ].indexOf( tgt.io );
+         var t2 = $scope.nodeObject[ type ].indexOf( curr.io );
 
-         $scope.nodeObject.input.forEach( ( inp, idx ) => {
-            if ( inp.uuid === tgt.uuid ) {
-               t2 = idx;
-            }
-         } );
-         $scope.nodeObject.output.forEach( ( inp, idx ) => {
-            if ( inp.uuid === tgt.uuid ){
-               t2 = idx;
-            }
-         } );
+         var temp = $scope.nodeObject[ type ][ t1 ];
+         $scope.nodeObject[ type ][ t1 ] = $scope.nodeObject[ type ][ t2 ];
+         $scope.nodeObject[ type ][ t2 ] = temp;
 
-         //swap
-         if ( io === 0 ) {
-            var temp = $scope.nodeObject.input[ t1 ];
-            $scope.nodeObject.input[ t1 ] = $scope.nodeObject.input[ t2 ];
-            $scope.nodeObject.input[ t2 ] = temp;
-         } else {
-            var temp = $scope.nodeObject.output[ t1 ];
-            $scope.nodeObject.output[ t1 ] = $scope.nodeObject.output[ t2 ];
-            $scope.nodeObject.output[ t2 ] = temp;
-         }
-
-// todo fix this mess
          $scope.$digest();
          $scope.$broadcast( 'connectionNeedsUpdate' );
          $scope.$apply();

@@ -1,4 +1,4 @@
-module.exports = [ () => {
+module.exports = [ '$timeout', ( $timeout ) => {
 
    function link( $scope, $element, $attrs, $controllers ) {
 
@@ -11,20 +11,30 @@ module.exports = [ () => {
 
       } );
 
-      $scope.$on( 'zoomed', ( e, v ) => svgPannableCtrl.scalingFactor = v );
+      // todo move into service
+      $scope.$on( 'zoomed', ( e, v ) => {
+         svgPannableCtrl.scalingFactor = v;
+      } );
 
    }
 
    function controller( $scope, $element, $attrs ) {
 
-      $scope.headerHeight = 20;
+      // todo move all setting into service
+      $scope.headerHeight = 16;
       $scope.width = 0;
       $scope.height = 0;
       $scope.rowHeight = 16;
       $scope.connWidth = 10;
       $scope.connHeight = 10;
+      $scope.connWidthOffset = -5;
       $scope.connHeightOffset = 3;
       $scope.labelSpacing = 5;
+
+      $scope.numInput = $scope.nodeObject.input.length;
+      $scope.numOutput = $scope.nodeObject.output.length;
+      $scope.offsetInput = 0;
+      $scope.offsetOutput = 0;
 
       this.getHeaderHeight     = () => { return $scope.headerHeight; };
       this.getWidth            = () => { return $scope.width; };
@@ -32,6 +42,8 @@ module.exports = [ () => {
       this.getConnWidth        = () => { return $scope.connWidth; };
       this.getConnHeight       = () => { return $scope.connHeight; };
       this.getConnHeightOffset = () => { return $scope.connHeightOffset; };
+      this.getOffsetInput      = () => { return $scope.offsetInput; };
+      this.getOffsetOutput     = () => { return $scope.offsetOutput; };
 
       var maxLabelWidth = 0;
       this.setMaxLabelWidth = v => {
@@ -47,6 +59,12 @@ module.exports = [ () => {
          $scope.height = $scope.headerHeight + ( maxConn * $scope.rowHeight );
       };
       this.computeHeight();
+
+      this.computeOffsetIO = () => {
+         $scope.offsetInput = ( ($scope.height - $scope.headerHeight) * 0.5 ) - ( $scope.numInput * $scope.rowHeight ) * 0.5;
+         $scope.offsetOutput = ( ($scope.height - $scope.headerHeight) * 0.5 ) - ( $scope.numOutput * $scope.rowHeight ) * 0.5;
+      };
+      this.computeOffsetIO();
 
    }
 

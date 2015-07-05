@@ -5,18 +5,25 @@ module.exports = [ () => {
       var sortCtrl = $controllers[ 0 ];
       var dragCtrl = $controllers[ 1 ];
 
+      var desc = {
+         type: $scope.input ? 0 : 1,
+         io: $scope.input ? $scope.input : $scope.output
+      };
+
       $element
       .on( 'mousedown', e => {
          dragCtrl.disableDrag();
          sortCtrl.sorting = true;
-         sortCtrl.startSort( $scope.input ? $scope.input : $scope.output );
+         sortCtrl.startSort( desc );
       } )
       .on( 'mouseenter', e => {
-         sortCtrl.endSort( $scope.input ? $scope.input : $scope.output );
+         if ( !sortCtrl.sorting ) return;
+         sortCtrl.endSort( desc );
       } );
 
-// todo -> body no!!
-      $( 'body' ).on( 'mouseup', e => {
+      $( 'body' )
+      .on( 'mouseup', e => {
+         if ( !sortCtrl.sorting ) return;
          dragCtrl.enableDrag();
          sortCtrl.reset();
          sortCtrl.sorting = false;
