@@ -5,64 +5,70 @@ module.exports = [ '$scope', 'nodeFactory', ( $scope, nodeFactory ) => {
 
    $scope.nodeFactory = nodeFactory;
 
-   nodeFactory.generateNode();
+   $scope.run = () => {
 
-   $scope.NEED_MORE_NODES = n => {
-      for( let i = 0; i < n; i ++ ) {
-         nodeFactory.generateNode();
-         console.log( 1 );
-      }
+      nodeFactory.run();
       $scope.$apply();
+
    };
 
+   // $scope.NEED_MORE_NODES = n => {
+   //    for( let i = 0; i < n; i ++ ) {
+   //       nodeFactory.generateNode();
+   //       console.log( 1 );
+   //    }
+   //    $scope.$apply();
+   // };
+
    // handle user interaction with connector
-   var iniConn = null;
-   var endConn = null;
-   $scope.$on( 'startConn', ( e, conn ) => {
+      var iniConn = null;
+      var endConn = null;
+      $scope.$on( 'startConn', ( e, conn ) => {
 
-      e.stopPropagation();
-      iniConn = conn;
+         e.stopPropagation();
+         iniConn = conn;
 
-   } );
+      } );
 
-   $scope.$on( 'endConn', ( e, conn ) => {
+      $scope.$on( 'endConn', ( e, conn ) => {
 
-      e.stopPropagation();
-      endConn = conn;
+         e.stopPropagation();
+         endConn = conn;
 
-      // register conn
-      if (
-         iniConn !== null && endConn !== null &&
-         iniConn.uuid !== endConn.uuid &&
-         iniConn.parentUUID !== endConn.parentUUID
-      ) {
+         // register conn
+         if (
+            iniConn !== null && endConn !== null &&
+            iniConn.uuid !== endConn.uuid &&
+            iniConn.parentUUID !== endConn.parentUUID
+         ) {
 
-         if ( iniConn.type !== endConn.type ) {
+            if ( iniConn.type !== endConn.type ) {
 
-            var pair = [];
-            pair[ iniConn.type ] = iniConn;
-            pair[ endConn.type ] = endConn;
+               var pair = [];
+               pair[ iniConn.type ] = iniConn;
+               pair[ endConn.type ] = endConn;
 
-            if ( !isDuplicate( pair[ 0 ], pair[ 1 ] ) ) {
-               nodeFactory.connections.push( pair );
-               nodeFactory.computeExecutionOrder();
-               $scope.$apply();
+               if ( !isDuplicate( pair[ 0 ], pair[ 1 ] ) ) {
+                  nodeFactory.connections.push( pair );
+                  nodeFactory.computeTopologicalOrder();
+                  $scope.$apply();
+               }
+
             }
 
          }
 
+         // reset
+         iniConn = null;
+         endConn = null;
+
+      } );
+
+      function isDuplicate( src, tgt ) {
+
+         return nodeFactory.connections.some( pair => pair[ 0 ].uuid === src.uuid && pair[ 1 ].uuid === tgt.uuid );
+
       }
-
-      // reset
-      iniConn = null;
-      endConn = null;
-
-   } );
-
-   function isDuplicate( src, tgt ) {
-
-      return nodeFactory.connections.some( pair => pair[ 0 ].uuid === src.uuid && pair[ 1 ].uuid === tgt.uuid );
-
-   }
+   //
 
 } ];

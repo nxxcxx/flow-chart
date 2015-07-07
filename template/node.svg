@@ -1,10 +1,10 @@
-<g svg-pannable class="nodeBox" >
+<g node-selectable svg-pannable class="nodeBox" >
 
    <rect box fill="#999999" x="0" y="0" ng-attr-width="{{ width }}" ng-attr-height="{{ height }}" />
 
    <rect header
       fill="#777777" x="0" y="0" ng-attr-width="{{ width }}" ng-attr-height="{{ headerHeight }}" />
-   <text headerText
+   <text node-label
       ng-attr-x="{{ 5 }}"
       ng-attr-y="{{ headerHeight * 0.5 }}"
       text-anchor="start"

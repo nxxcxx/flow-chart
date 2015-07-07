@@ -27,7 +27,7 @@ module.exports = [ '$timeout', ( $timeout ) => {
       $scope.rowHeight = 16;
       $scope.connWidth = 10;
       $scope.connHeight = 10;
-      $scope.connWidthOffset = -5;
+      $scope.connWidthOffset = 0;
       $scope.connHeightOffset = 3;
       $scope.labelSpacing = 5;
 
@@ -51,7 +51,12 @@ module.exports = [ '$timeout', ( $timeout ) => {
       };
 
       this.computeWidth = () => {
-         $scope.width = ( maxLabelWidth + $scope.connWidth + $scope.labelSpacing * 2.0 ) * 2.0;
+         $scope.width = ( maxLabelWidth + $scope.connWidth + $scope.labelSpacing * 2.0 );
+         if ( $scope.numInput === 0 || $scope.numOutput === 0 ) {
+            $scope.width += 20;
+         } else {
+            $scope.width *= 2.0;
+         }
       };
 
       this.computeHeight = () => {

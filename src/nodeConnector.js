@@ -1,11 +1,10 @@
-module.exports = [ () => {
+module.exports = [ 'nodeFactory', ( nodeFactory ) => {
 
    function link( $scope, $element, $attrs, $controllers ) {
 
       var nodeCtrl = $controllers[ 0 ];
       var dragCtrl = $controllers[ 1 ];
       var sortCtrl = $controllers[ 2 ];
-
 
       $element
       .on( 'mousedown', e => {
@@ -19,6 +18,11 @@ module.exports = [ () => {
       } )
       .on( 'mouseup', e => {
          endConn();
+      } )
+      .on( 'dblclick', e => {
+         nodeFactory.removeConnections( conn );
+         nodeFactory.computeTopologicalOrder();
+         $scope.$apply();
       } );
 
       var io = $scope.input ? $scope.input : $scope.output;

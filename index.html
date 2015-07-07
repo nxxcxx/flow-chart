@@ -22,6 +22,8 @@
 		<div class="view left">
 
 			<button ng-click="nodeFactory.generateNode()">Add Node</button>
+			<br> Selected
+			<pre>{{ nodeFactory.getSelectedNode().title }}</pre>
 			<br> Nodes
 			<pre>{{ nodeFactory.nodes | json }}</pre>
 			<br> Connection
