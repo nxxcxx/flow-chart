@@ -1,24 +1,18 @@
 
-module.exports = [ '$scope', 'nodeFactory', ( $scope, nodeFactory ) => {
+module.exports = [ '$scope', 'nodeService', 'nodeFactory', ( $scope, nodeService, nodeFactory ) => {
 
    global.SCOPE = $scope;
 
-   $scope.nodeFactory = nodeFactory;
+   global.nf = nodeFactory;
+
+   $scope.nodeService = nodeService;
 
    $scope.run = () => {
 
-      nodeFactory.run();
+      nodeService.run();
       $scope.$apply();
 
    };
-
-   // $scope.NEED_MORE_NODES = n => {
-   //    for( let i = 0; i < n; i ++ ) {
-   //       nodeFactory.generateNode();
-   //       console.log( 1 );
-   //    }
-   //    $scope.$apply();
-   // };
 
    // handle user interaction with connector
       var iniConn = null;
@@ -49,8 +43,8 @@ module.exports = [ '$scope', 'nodeFactory', ( $scope, nodeFactory ) => {
                pair[ endConn.type ] = endConn;
 
                if ( !isDuplicate( pair[ 0 ], pair[ 1 ] ) ) {
-                  nodeFactory.connections.push( pair );
-                  nodeFactory.computeTopologicalOrder();
+                  nodeService.connections.push( pair );
+                  nodeService.computeTopologicalOrder();
                   $scope.$apply();
                }
 
@@ -65,9 +59,7 @@ module.exports = [ '$scope', 'nodeFactory', ( $scope, nodeFactory ) => {
       } );
 
       function isDuplicate( src, tgt ) {
-
-         return nodeFactory.connections.some( pair => pair[ 0 ].uuid === src.uuid && pair[ 1 ].uuid === tgt.uuid );
-
+         return nodeService.connections.some( pair => pair[ 0 ].uuid === src.uuid && pair[ 1 ].uuid === tgt.uuid );
       }
    //
 

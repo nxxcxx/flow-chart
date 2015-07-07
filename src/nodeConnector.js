@@ -1,4 +1,4 @@
-module.exports = [ 'nodeFactory', ( nodeFactory ) => {
+module.exports = [ 'nodeService', ( nodeService ) => {
 
    function link( $scope, $element, $attrs, $controllers ) {
 
@@ -20,8 +20,8 @@ module.exports = [ 'nodeFactory', ( nodeFactory ) => {
          endConn();
       } )
       .on( 'dblclick', e => {
-         nodeFactory.removeConnections( conn );
-         nodeFactory.computeTopologicalOrder();
+         nodeService.removeConnections( conn );
+         nodeService.computeTopologicalOrder();
          $scope.$apply();
       } );
 

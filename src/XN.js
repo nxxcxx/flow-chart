@@ -11,6 +11,7 @@ module.exports = ( () => {
 			this._output = [];
          this._task = null;
          this._result = {};
+         this._fnStr = '';
 		}
 		input() {
          this._input = [];
@@ -40,7 +41,7 @@ module.exports = ( () => {
             this._input.forEach( inp => args.push( res[ inp ] ) );
             this._result = this._task.apply( this, args );
          } catch ( e ) {
-            console.error( 'Incomplete input' );
+            console.error( 'Invalid input' );
          }
          return this;
       }

@@ -57,6 +57,7 @@ module.exports = [ '$timeout', ( $timeout ) => {
          } else {
             $scope.width *= 2.0;
          }
+         maxLabelWidth = 0;
       };
 
       this.computeHeight = () => {

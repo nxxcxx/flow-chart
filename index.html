@@ -5,12 +5,16 @@
 	<meta charset="utf-8">
 	<title></title>
 
-	<link rel="stylesheet" href="./bower_components/bootstrap/dist/css/bootstrap.css">
-	<link rel="stylesheet" href="./css/app.css">
+	<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+	<link rel="stylesheet" href="bower_components/codemirror/lib/codemirror.css">
+	<link rel="stylesheet" href="css/app.css">
 
 	<script src="bower_components/jquery/dist/jquery.js"></script>
 	<script src="bower_components/jquery-ui/jquery-ui.js"></script>
 	<script src="bower_components/angular/angular.js"></script>
+	<script src="bower_components/codemirror/lib/codemirror.js"></script>
+	<script src="bower_components/codemirror/mode/javascript/javascript.js"></script>
+
 	<script src="build/app.js"></script>
 
 </head>
@@ -21,13 +25,17 @@
 
 		<div class="view left">
 
-			<button ng-click="nodeFactory.generateNode()">Add Node</button>
+			<button ng-click="nodeService.generateNode()">Add Node</button>
+
 			<br> Selected
-			<pre>{{ nodeFactory.getSelectedNode().title }}</pre>
+			<pre>{{ nodeService.getSelectedNode() | json }}</pre>
+
+			<code-editor></code-editor>
+
 			<br> Nodes
-			<pre>{{ nodeFactory.nodes | json }}</pre>
+			<pre>{{ nodeService.nodes | json }}</pre>
 			<br> Connection
-			<pre>{{ nodeFactory.connections | json }}</pre>
+			<pre>{{ nodeService.connections | json }}</pre>
 
 		</div>
 
@@ -40,11 +48,11 @@
 				<g handler="#control" svg-pannable svg-zoomable>
 
 					<!-- nodes -->
-					<node-box ng-repeat="node in nodeFactory.nodes track by node.uuid" node-object="node"></node-box>
+					<node-box ng-repeat="node in nodeService.nodes track by node.uuid" node-object="node"></node-box>
 
 					<!-- connections -->
 					<g fill="none" stroke-width="1.25" stroke="black">
-						<node-link ng-repeat="pair in nodeFactory.connections" pair="pair"></node-link>
+						<node-link ng-repeat="pair in nodeService.connections" pair="pair"></node-link>
 					</g>
 
 				</g>

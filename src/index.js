@@ -4,6 +4,7 @@ global.TOPOSORT = require( 'toposort' );
 global.XN = require( './XN.js' );
 
 angular.module( 'nodeApp', [] )
+	.factory( 'nodeService', require( './nodeService' ) )
 	.factory( 'nodeFactory', require( './nodeFactory' ) )
 	.controller( 'nodeCtrl', require( './nodeCtrl' ) )
 	.directive( 'nodeBox', require( './nodeBox' ) )
@@ -14,4 +15,5 @@ angular.module( 'nodeApp', [] )
 	.directive( 'nodeSortItem', require( './nodeSortItem' ) )
 	.directive( 'nodeSelectable', require( './nodeSelectable' ) )
 	.directive( 'svgPannable', require( './svg-pannable' ) )
-	.directive( 'svgZoomable', require( './svg-zoomable' ) );
+	.directive( 'svgZoomable', require( './svg-zoomable' ) )
+	.directive( 'codeEditor', require( './code-editor' ) );
