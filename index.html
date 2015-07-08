@@ -31,7 +31,7 @@
 			<br> Selected
 			<pre>{{ nodeService.getSelectedNode().name }} {{ nodeService.getSelectedNode().uuid }}</pre>
 
-			<code-editor></code-editor>
+			<code-mirror></code-mirror>
 
 			<br> Nodes
 			<pre>{{ nodeService.nodes | cjson }}</pre>
@@ -50,7 +50,7 @@
 				<g handler="#control" svg-pannable svg-zoomable>
 
 					<!-- nodes -->
-					<node-box ng-repeat="node in nodeService.nodes track by node.uuid" node-object="node"></node-box>
+					<node-module ng-repeat="node in nodeService.nodes track by node.uuid" node-object="node"></node-module>
 
 					<!-- connections -->
 					<g fill="none" stroke-width="1.25" stroke="black">

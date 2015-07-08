@@ -25,7 +25,7 @@ module.exports = [ '$timeout', ( $timeout ) => {
    return {
 
       restrict: 'A',
-      require: [ '^nodeBox' ],
+      require: [ '^nodeModule' ],
       link
 
    };

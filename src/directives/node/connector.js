@@ -46,7 +46,7 @@ module.exports = [ 'nodeService', 'nodeEvent', ( nodeService, nodeEvent ) => {
    return {
 
       restrict: 'AE',
-      require: [ '^nodeBox', '^svgPannable', '^nodeSortable' ],
+      require: [ '^nodeModule', '^svgPannable', '^nodeSortable' ],
       scope: {
          io: '='
       },
