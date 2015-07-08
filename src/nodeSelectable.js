@@ -7,6 +7,10 @@ module.exports = [ 'nodeService', ( nodeService ) => {
          $scope.$apply();
       } );
 
+      $scope.$watch( nodeService.getSelectedNode, n => {
+         if ( n ) $scope.isSelected = n.uuid === $scope.nodeObject.uuid;
+      } );
+
    }
 
    return {

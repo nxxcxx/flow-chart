@@ -1,6 +1,7 @@
 global.UUID = require( 'uuid' );
 global.THROTTLE = require( 'throttle-debounce' ).throttle;
 global.TOPOSORT = require( 'toposort' );
+global.CJSON = require( 'circular-json' );
 
 angular.module( 'nodeApp', [] )
 	.factory( 'nodeService', require( './nodeService' ) )
@@ -16,4 +17,5 @@ angular.module( 'nodeApp', [] )
 	.directive( 'nodeSelectable', require( './nodeSelectable' ) )
 	.directive( 'svgPannable', require( './svg-pannable' ) )
 	.directive( 'svgZoomable', require( './svg-zoomable' ) )
-	.directive( 'codeEditor', require( './code-editor' ) );
+	.directive( 'codeEditor', require( './code-editor' ) )
+	.filter( 'cjson', require( './circular-json' ) );

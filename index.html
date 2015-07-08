@@ -6,6 +6,7 @@
 
 	<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
 	<link rel="stylesheet" href="bower_components/codemirror/lib/codemirror.css">
+	<link rel="stylesheet" href="bower_components/codemirror/theme/elegant.css">
 	<link rel="stylesheet" href="css/app.css">
 
 	<script src="bower_components/jquery/dist/jquery.js"></script>
@@ -22,22 +23,24 @@
 
 	<div class="container">
 
+		<!-- left view -->
 		<div class="view left">
 
 			<button ng-click="nodeService.generateNode()">Add Node</button>
 
-			<!-- <br> Selected -->
-			<!-- <pre>{{ nodeService.getSelectedNode() | json }}</pre> -->
+			<br> Selected
+			<pre>{{ nodeService.getSelectedNode().name }} {{ nodeService.getSelectedNode().uuid }}</pre>
 
 			<code-editor></code-editor>
 
-			<!-- <br> Nodes -->
-			<!-- <pre>{{ nodeService.nodes | json }}</pre> -->
-			<!-- <br> Connections -->
-			<!-- <pre>{{ nodeService.connections | json }}</pre> -->
+			<br> Nodes
+			<pre>{{ nodeService.nodes | cjson }}</pre>
+			<br> Connections
+			<pre>{{ nodeService.connections | cjson }}</pre>
 
 		</div>
 
+		<!-- right view -->
 		<div class="view right">
 
 			<svg id="nodeCanvas">

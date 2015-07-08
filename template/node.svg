@@ -11,7 +11,7 @@
       style="font-size: 14px; font-style: bold; alignment-baseline: central;">
       {{ nodeObject.name }}
    </text>
-   <text executionOrder
+   <text order-number
       ng-attr-x="{{ width - 5 }}"
       ng-attr-y="{{ headerHeight * 0.5 }}"
       text-anchor="end"
@@ -76,5 +76,7 @@
             </text>
       </g>
    </g>
+
+   <rect border ng-show="isSelected" stroke="#000000" fill="none" stroke-width="1.5" x="0" y="0" ng-attr-width="{{ width }}" ng-attr-height="{{ height }}" />
 
 </g>

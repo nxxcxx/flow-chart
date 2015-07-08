@@ -5,6 +5,7 @@ module.exports = [ () => {
       var textArea = $element[ 0 ];
       var editor = CodeMirror.fromTextArea( textArea, {
          mode: 'javascript',
+         theme: 'elegant',
          lineNumbers: true,
          lineWrapping: true,
          tabSize: 3
