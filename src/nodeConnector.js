@@ -1,4 +1,4 @@
-module.exports = [ 'nodeService', ( nodeService ) => {
+module.exports = [ 'nodeService', 'nodeEvent', ( nodeService, nodeEvent ) => {
 
    function link( $scope, $element, $attrs, $controllers ) {
 
@@ -10,27 +10,21 @@ module.exports = [ 'nodeService', ( nodeService ) => {
       .on( 'mousedown', e => {
          dragCtrl.disableDrag();
          sortCtrl.disableSort();
-         startConn();
+         nodeEvent.startConnection( $scope.io );
       } )
       .on( 'mouseleave', e => {
          dragCtrl.enableDrag();
          sortCtrl.enableSort();
       } )
       .on( 'mouseup', e => {
-         endConn();
+         nodeEvent.endConnection( $scope.io );
       } )
       .on( 'dblclick', e => {
-         nodeService.removeConnections( conn );
+         nodeService.removeConnections( $scope.io );
          nodeService.computeTopologicalOrder();
          $scope.$apply();
       } );
 
-      var io = $scope.input ? $scope.input : $scope.output;
-      var conn = {};
-      conn.uuid = io.uuid;
-      conn.name = io.name;
-      conn.type = $scope.input ? 0 : 1;
-      conn.parentUUID = $scope.parentUuid;
 
       updateConn();
 
@@ -40,17 +34,11 @@ module.exports = [ 'nodeService', ( nodeService ) => {
 
       function updateConn() {
          var yOff = parseInt( $attrs.index ) * nodeCtrl.getRowHeight() + nodeCtrl.getHeaderHeight() + nodeCtrl.getConnHeightOffset() + nodeCtrl.getConnHeight() * 0.5;
-         yOff += conn.type === 0 ? nodeCtrl.getOffsetInput() : nodeCtrl.getOffsetOutput();
-         conn.position = {
-            left: dragCtrl.position.x + ( conn.type ? nodeCtrl.getWidth() : 0 ),
+         yOff += $scope.io.type === 0 ? nodeCtrl.getOffsetInput() : nodeCtrl.getOffsetOutput();
+         $scope.io.position = {
+            left: dragCtrl.position.x + ( $scope.io.type ? nodeCtrl.getWidth() : 0 ),
             top: dragCtrl.position.y + yOff
          };
-      }
-      function startConn() {
-         $scope.$emit( 'startConn', conn );
-      }
-      function endConn() {
-         $scope.$emit( 'endConn', conn );
       }
 
    }
@@ -60,9 +48,7 @@ module.exports = [ 'nodeService', ( nodeService ) => {
       restrict: 'AE',
       require: [ '^nodeBox', '^svgPannable', '^nodeSortable' ],
       scope: {
-         parentUuid: '@',
-         input: '=',
-         output: '='
+         io: '='
       },
       link
 

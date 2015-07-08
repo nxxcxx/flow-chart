@@ -3,7 +3,7 @@ module.exports = [ () => {
 	function link( $scope ) {
 
 		function updateConnection() {
-			
+
 			$scope.start = {
 				x: $scope.pair[ 0 ].position.left,
 				y: $scope.pair[ 0 ].position.top
@@ -26,7 +26,8 @@ module.exports = [ () => {
 
 		}
 
-		$scope.$watch( 'pair', updateConnection , true );
+		function watcher() { return [ $scope.pair[ 0 ].position, $scope.pair[ 1 ].position ]; }
+		$scope.$watch( watcher, updateConnection , true );
 
 	}
 

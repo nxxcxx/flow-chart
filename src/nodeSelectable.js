@@ -1,9 +1,9 @@
-module.exports = [ 'nodeFactory', ( nodeFactory ) => {
+module.exports = [ 'nodeService', ( nodeService ) => {
 
    function link( $scope, $element, $attrs, $controllers ) {
 
       $element.on( 'click', () => {
-         nodeFactory.setSelected( $scope.nodeObject );
+         nodeService.setSelected( $scope.nodeObject );
          $scope.$apply();
       } );
 

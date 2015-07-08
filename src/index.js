@@ -1,11 +1,11 @@
 global.UUID = require( 'uuid' );
 global.THROTTLE = require( 'throttle-debounce' ).throttle;
 global.TOPOSORT = require( 'toposort' );
-global.XN = require( './XN.js' );
 
 angular.module( 'nodeApp', [] )
 	.factory( 'nodeService', require( './nodeService' ) )
 	.factory( 'nodeFactory', require( './nodeFactory' ) )
+	.factory( 'nodeEvent', require( './nodeEvent' ) )
 	.controller( 'nodeCtrl', require( './nodeCtrl' ) )
 	.directive( 'nodeBox', require( './nodeBox' ) )
 	.directive( 'nodeLabel', require( './nodeLabel' ) )

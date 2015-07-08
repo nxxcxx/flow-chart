@@ -1,4 +1,4 @@
-module.exports = [ () => {
+module.exports = [ 'nodeFactory', ( nodeFactory ) => {
 
    var nodes = [];
    var connections = [];
@@ -6,7 +6,6 @@ module.exports = [ () => {
    var selectedNode = null;
 
    function getSelectedNode() {
-      // todo fix scope.$apply call too frequently
       return selectedNode;
    }
 
@@ -16,103 +15,48 @@ module.exports = [ () => {
 
    function run() {
 
-      console.log( 'running...' );
-      computeTopologicalOrder();
       nodes.sort( ( a, b ) => { return a.order - b.order; } );
-      nodes.forEach( n => {
-
-         if ( n.order === -1 ) return;
-
-         if ( n.input.length === 0 ) {
-            n.xn.exe();
-         } else {
-            var inpObj = {};
-            n.input.forEach( inp => {
-               inpObj[ inp.name ] = getIncomingInputAt( inp.uuid );
-            } );
-            console.log( n.title, 'input:', inpObj, n.uuid );
-            n.xn.exe( inpObj );
-         }
-
-      } );
-      console.log( '--------------------' );
-
-   }
-
-   function getIncomingInputAt( uuid ) {
-
-      var parentUUID = null;
-      var optUUID = null;
-      connections.some( pair => {
-         if ( pair[ 0 ].uuid === uuid ) {
-            parentUUID = pair[ 1 ].parentUUID;
-            optUUID = pair[ 1 ].uuid;
-            return true;
-         }
-      } );
-
-      var xnopt = null;
-      nodes.some( n => {
-         if ( n.uuid === parentUUID ) {
-            n.output.some( opt => {
-               if ( opt.uuid === optUUID ) {
-                  xnopt = n.xn.result()[ opt.name ];
-                  return true;
-               }
-            } );
-            return true;
-         }
-      } );
-      if ( xnopt === null ) console.error( 'input not found for:', uuid );
-      return xnopt;
+      nodes.filter( n => { return n.order !== -1; } ).forEach( n => n.execute() );
 
    }
 
    function generateNode() {
 
-      createEmptyNode();
+      var n;
 
-   }
+      n = nodeFactory.create( 'Constants' );
+      n.addOutput( 'x', 'y', 'z' );
+      n._fnstr = 'return { x: 42, y: 33, z: 76 };';
+      n.compile();
+      nodes.push( n );
 
-   function parseFunctionParameters( fnStr ) {
-      var STRIP_COMMENTS = /((\/\/.*$)|(\/\*[\s\S]*?\*\/))/mg;
-      var ARGUMENT_NAMES = /([^\s,]+)/g;
-      fnStr = fnStr.replace(STRIP_COMMENTS, '');
-      var result = fnStr.slice(fnStr.indexOf('(')+1, fnStr.indexOf(')')).match(ARGUMENT_NAMES);
-      if ( result === null ) result = [];
-      return result;
-   }
+      n = nodeFactory.create( 'Vector3' );
+      n.addInput( 'u', 'v', 'w' );
+      n.addOutput( 'vec3' );
+      n._fnstr = 'return { vec3: [ input.u, input.v, input.w ] };';
+      n.compile();
+      nodes.push( n );
 
-   function createEmptyNode() {
+      n = nodeFactory.create( 'Vector3' );
+      n.addInput( 's', 't', 'p' );
+      n.addOutput( 'vec3' );
+      n._fnstr = 'return { vec3: [ input.s, input.t, input.p ] };';
+      n.compile();
+      nodes.push( n );
 
-      var uuid = UUID();
-      var node = {
-         title: '',
-         uuid: uuid,
-         input: [],
-         output: [],
-         order: -1,
-         xn: XN.define( uuid )
-      };
-      nodes.push( node );
+      n = nodeFactory.create( 'dot' );
+      n.addInput( 'v1', 'v2' );
+      n.addOutput( 'f' );
+      n._fnstr = 'return { f: input.v1[0]*input.v2[0]+input.v1[1]*input.v2[1]+input.v1[2]*input.v2[2] };';
+      n.compile();
+      nodes.push( n );
 
-   }
+      n = nodeFactory.create( 'Console' );
+      n.addInput( 'log' );
+      n._fnstr = 'console.log( input.log );';
+      n.compile();
+      nodes.push( n );
 
-   function xxxxxxxxxx() {
-      var uuid = UUID();
-
-      var xn = XN.define( uuid );
-      xn.input( 'u', 'v' ).output( 'vec2' ).task( 'return { vec2: [ u, v ] };' );
-
-      var node = {
-         title: 'Vector2',
-         uuid: uuid,
-         input: [ { name: 'u', uuid: UUID() }, { name: 'v', uuid: UUID() } ],
-         output: [ { name: 'vec2', uuid: UUID() } ],
-         order: -1,
-         xn: xn
-      };
-      nodes.push( node );
    }
 
    function computeTopologicalOrder() {
@@ -120,8 +64,8 @@ module.exports = [ () => {
       var deps = [];
       connections.forEach( pair => {
 
-         var v1 = pair[ 0 ].parentUUID;
-         var v2 = pair[ 1 ].parentUUID;
+         var v1 = pair[ 0 ].getParent().uuid;
+         var v2 = pair[ 1 ].getParent().uuid;
          deps.push( [ v2, v1 ] );
 
       } );
@@ -135,12 +79,24 @@ module.exports = [ () => {
 
       var rm = [];
       connections.forEach( ( pair, idx ) => {
-         if ( conn.uuid === pair[ conn.type ].uuid ) rm.push( idx );
+         if ( conn.uuid === pair[ conn.type ].uuid ) {
+            pair[ 0 ].disconnect();
+            rm.push( idx );
+         }
       } );
       for ( let i = rm.length - 1; i >= 0; i -- ) {
          connections.splice( rm[ i ], 1 );
       }
 
+   }
+
+   function parseFunctionParameters( fnStr ) {
+      var STRIP_COMMENTS = /((\/\/.*$)|(\/\*[\s\S]*?\*\/))/mg;
+      var ARGUMENT_NAMES = /([^\s,]+)/g;
+      fnStr = fnStr.replace(STRIP_COMMENTS, '');
+      var result = fnStr.slice(fnStr.indexOf('(')+1, fnStr.indexOf(')')).match(ARGUMENT_NAMES);
+      if ( result === null ) result = [];
+      return result;
    }
 
    return {
@@ -153,8 +109,7 @@ module.exports = [ () => {
       selectedNode,
       setSelected,
       getSelectedNode,
-      run,
-      getIncomingInputAt,
+      run
 
    };
 

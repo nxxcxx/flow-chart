@@ -9,7 +9,7 @@
       ng-attr-y="{{ headerHeight * 0.5 }}"
       text-anchor="start"
       style="font-size: 14px; font-style: bold; alignment-baseline: central;">
-      {{ nodeObject.title }}
+      {{ nodeObject.name }}
    </text>
    <text executionOrder
       ng-attr-x="{{ width - 5 }}"
@@ -32,7 +32,7 @@
             <rect node-connector
                fill="#000000"
                index="{{ $index }}"
-               input="input"
+               io="input"
                parent-uuid="{{ nodeObject.uuid }}"
                ng-attr-x="{{ connWidthOffset }}"
                ng-attr-y="{{ $index * rowHeight + headerHeight + connHeightOffset }}"
@@ -61,7 +61,7 @@
             <rect node-connector
                fill="#000000"
                index="{{ $index }}"
-               output="output"
+               io="output"
                parent-uuid="{{ nodeObject.uuid }}"
                ng-attr-x="{{ width - connWidth - connWidthOffset }}"
                ng-attr-y="{{ $index * rowHeight + headerHeight + connHeightOffset }}"
