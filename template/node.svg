@@ -30,7 +30,7 @@
                ng-attr-width="{{ width * 0.5 }}"
                ng-attr-height="{{ rowHeight }}"/>
             <rect node-connector
-               fill="#000000"
+               fill="#333333"
                index="{{ $index }}"
                io="input"
                parent-uuid="{{ nodeObject.uuid }}"
@@ -59,7 +59,7 @@
                ng-attr-width="{{ width * 0.5 }}"
                ng-attr-height="{{ rowHeight }}" />
             <rect node-connector
-               fill="#000000"
+               fill="#333333"
                index="{{ $index }}"
                io="output"
                parent-uuid="{{ nodeObject.uuid }}"

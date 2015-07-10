@@ -1,11 +1,12 @@
+
 @font-face {
-   font-family: Bebas;
-   src: url( font/Bebas.ttf );
+   font-family: Neou;
+   src: url( font/Neou-Bold.ttf );
 }
 
 html, body {
    /*font-family: Sans-serif;*/
-   font-family: Bebas;
+   font-family: Neou;
    margin: 0px;
    padding: 0px;
    height: 100%;
@@ -101,7 +102,7 @@ li {
    height: 100%;
    width: 100%;
    display: block;
-   font-size: 11px;
+   font-size: 10px;
 }
 
 pre {
