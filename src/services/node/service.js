@@ -13,11 +13,26 @@ module.exports = [ 'nodeFactory', ( nodeFactory ) => {
       selectedNode = node;
    }
 
+   function clearSelected() {
+      selectedNode = null;
+   }
+
    function run() {
 
       nodes.sort( ( a, b ) => { return a.order - b.order; } );
-      nodes.filter( n => { return n.order !== -1; } ).forEach( n => n.execute() );
 
+      nodes.filter( n => { return n.order !== -1; } ).forEach( n => {
+         var err = n.compile();
+         if ( err ) console.error( `Node order No.${n.order}`, err );
+         n.execute();
+      } );
+
+   }
+
+   function createEmptyNode() {
+      var n = nodeFactory.create( 'Empty' );
+      nodes.push( n );
+      return n;
    }
 
    function generateNode() {
@@ -106,10 +121,11 @@ module.exports = [ 'nodeFactory', ( nodeFactory ) => {
       generateNode,
       computeTopologicalOrder,
       removeConnections,
-      selectedNode,
+      clearSelected,
       setSelected,
       getSelectedNode,
-      run
+      run,
+      createEmptyNode
 
    };
 

@@ -1,9 +1,8 @@
-module.exports = [ () => {
+module.exports = [ 'CM', 'nodeService', ( CM, nodeService ) => {
 
    function link( $scope, $element, $attrs ) {
 
-      var textArea = $element[ 0 ];
-      var editor = CodeMirror.fromTextArea( textArea, {
+      var cm = CM.create( $element[ 0 ], {
          mode: 'javascript',
          theme: 'elegant',
          lineNumbers: true,
@@ -11,11 +10,13 @@ module.exports = [ () => {
          tabSize: 3
       } );
 
-      editor.setSize( '100%', 500 );
-
-      editor.on( 'change', () => {
-
-
+      cm.setSize( '100%', 500 );
+      cm.on( 'change', () => {
+         var node = nodeService.getSelectedNode();
+         if ( node ) {
+            node._fnstr = cm.getValue();
+            cm.clearHistory();
+         }
       } );
 
    }
@@ -24,7 +25,7 @@ module.exports = [ () => {
 
       restrict: 'E',
       replace: true,
-      template: '<textarea id="codeEditor"></textarea>',
+      template: '<textarea></textarea>',
       link
 
    };

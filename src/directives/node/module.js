@@ -11,7 +11,6 @@ module.exports = [ '$timeout', ( $timeout ) => {
 
       } );
 
-      // todo move into service
       $scope.$on( 'zoomed', ( e, v ) => {
          svgPannableCtrl.scalingFactor = v;
       } );
@@ -20,7 +19,6 @@ module.exports = [ '$timeout', ( $timeout ) => {
 
    function controller( $scope, $element, $attrs ) {
 
-      // todo move all setting into service
       $scope.headerHeight = 16;
       $scope.width = 0;
       $scope.height = 0;
@@ -46,30 +44,41 @@ module.exports = [ '$timeout', ( $timeout ) => {
       this.getOffsetOutput     = () => { return $scope.offsetOutput; };
 
       var maxLabelWidth = 0;
-      this.setMaxLabelWidth = v => {
+      function setMaxLabelWidth( v ) {
          if ( v > maxLabelWidth ) maxLabelWidth = v;
-      };
+      }
 
-      this.computeWidth = () => {
+      function computeWidth() {
          $scope.width = ( maxLabelWidth + $scope.connWidth + $scope.labelSpacing * 2.0 );
-         if ( $scope.numInput === 0 || $scope.numOutput === 0 ) {
-            $scope.width += 20;
-         } else {
-            $scope.width *= 2.0;
-         }
-      };
+         if ( $scope.numInput === 0 || $scope.numOutput === 0 ) $scope.width += 20;
+         else $scope.width *= 2.0;
+      }
 
-      this.computeHeight = () => {
+      function computeHeight() {
          var maxConn = Math.max( $scope.nodeObject.input.length, $scope.nodeObject.output.length );
          $scope.height = $scope.headerHeight + ( maxConn * $scope.rowHeight );
-      };
-      this.computeHeight();
+      }
 
-      this.computeOffsetIO = () => {
+      function computeVerticalOffsetIO() {
          $scope.offsetInput = ( ($scope.height - $scope.headerHeight) * 0.5 ) - ( $scope.numInput * $scope.rowHeight ) * 0.5;
          $scope.offsetOutput = ( ($scope.height - $scope.headerHeight) * 0.5 ) - ( $scope.numOutput * $scope.rowHeight ) * 0.5;
-      };
-      this.computeOffsetIO();
+      }
+
+      function updateUI() {
+         $scope.numInput = $scope.nodeObject.input.length;
+         $scope.numOutput = $scope.nodeObject.output.length;
+         $scope.offsetInput = 0;
+         $scope.offsetOutput = 0;
+
+         maxLabelWidth = 0;
+         $scope.$broadcast( 'requestLabelWidth', setMaxLabelWidth );
+         computeWidth();
+         computeHeight();
+         // computeVerticalOffsetIO();
+         $scope.$broadcast( 'connectionNeedsUpdate' );
+      }
+
+      $scope.$watch( () => { return $scope.nodeObject._ui.update; }, updateUI );
 
    }
 

@@ -3,20 +3,20 @@
    <rect box fill="#999999" x="0" y="0" ng-attr-width="{{ width }}" ng-attr-height="{{ height }}" />
 
    <rect header
-      fill="#777777" x="0" y="0" ng-attr-width="{{ width }}" ng-attr-height="{{ headerHeight }}" />
+      ng-attr-fill="{{ isSelected ? '#666666': '#888888' }}" x="0" y="0" ng-attr-width="{{ width }}" ng-attr-height="{{ headerHeight }}" />
    <text node-label
       ng-attr-x="{{ 5 }}"
       ng-attr-y="{{ headerHeight * 0.5 }}"
       text-anchor="start"
-      style="font-size: 14px; font-style: bold; alignment-baseline: central;">
+      style="alignment-baseline: central;">
       {{ nodeObject.name }}
    </text>
    <text order-number
       ng-attr-x="{{ width - 5 }}"
       ng-attr-y="{{ headerHeight * 0.5 }}"
       text-anchor="end"
-      style="font-size: 14px; font-style: bold; alignment-baseline: central;">
-      {{ nodeObject.order }}
+      style="alignment-baseline: central;">
+      {{ nodeObject.order === -1 ? '-' : nodeObject.order }}
    </text>
 
    <g node-sortable>
@@ -42,7 +42,7 @@
                ng-attr-x="{{ connWidth + labelSpacing }}"
                ng-attr-y="{{ $index * rowHeight + headerHeight + ( rowHeight * 0.5 ) }}"
                text-anchor="start"
-               style="font-size: 14px; alignment-baseline: middle;">
+               style="alignment-baseline: middle;">
                {{ input.name }}
             </text>
       </g>
@@ -71,12 +71,10 @@
                ng-attr-x="{{ width - connWidth - labelSpacing }}"
                ng-attr-y="{{ $index * rowHeight + headerHeight + ( rowHeight * 0.5 ) }}"
                text-anchor="end"
-               style="font-size: 14px; alignment-baseline: middle;">
+               style="alignment-baseline: middle;">
                {{ output.name }}
             </text>
       </g>
    </g>
-
-   <rect border ng-show="isSelected" stroke="#000000" fill="none" stroke-width="1.5" x="0" y="0" ng-attr-width="{{ width }}" ng-attr-height="{{ height }}" />
 
 </g>

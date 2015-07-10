@@ -1,31 +1,20 @@
 module.exports = [ '$timeout', ( $timeout ) => {
 
-   function link( $scope, $element, $attrs, $controllers ) {
+   function link( $scope, $element ) {
 
-      var nodeCtrl = $controllers[ 0 ];
-
-      $timeout( () => {
-
-         nodeCtrl.setMaxLabelWidth( $element[ 0 ].getComputedTextLength() );
-         nodeCtrl.computeWidth();
-         $scope.$broadcast( 'connectionNeedsUpdate' );
-
+      $scope.$on( 'requestLabelWidth', ( e, setMaxLabelWidth ) => {
+         setMaxLabelWidth( $element[ 0 ].getComputedTextLength() );
       } );
 
-      $scope.$watch( () => {
-         return $element[ 0 ].getComputedTextLength();
-      }, v => {
-         nodeCtrl.setMaxLabelWidth( v );
-         nodeCtrl.computeWidth();
-         $scope.$broadcast( 'connectionNeedsUpdate' );
-      }, true );
+      $timeout( () => {
+         if ( $scope.$last ) $scope.nodeObject.updateUI();
+      } );
 
    }
 
    return {
 
       restrict: 'A',
-      require: [ '^nodeModule' ],
       link
 
    };

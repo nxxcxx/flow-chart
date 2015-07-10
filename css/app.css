@@ -1,5 +1,11 @@
+@font-face {
+   font-family: Bebas;
+   src: url( font/Bebas.ttf );
+}
+
 html, body {
-   font-family: Sans-serif;
+   /*font-family: Sans-serif;*/
+   font-family: Bebas;
    margin: 0px;
    padding: 0px;
    height: 100%;
@@ -18,12 +24,12 @@ html, body {
 
 .view.left {
    background: #DCDCDC;
-   width: 50%;
+   width: 30%;
    overflow-y: scroll;
 }
 
 .view.right {
-   width: 50%;
+   width: 70%;
    background-color: #dddddd;
 }
 
@@ -95,6 +101,7 @@ li {
    height: 100%;
    width: 100%;
    display: block;
+   font-size: 11px;
 }
 
 pre {
@@ -102,4 +109,9 @@ pre {
    margin: 0px;
    padding: 0px;
    border: 2px solid rgb(0, 149, 255);
+   font-size: 12px;
+}
+
+.form-input {
+   width: 50%;
 }

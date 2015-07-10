@@ -25,14 +25,13 @@ module.exports = [ 'nodeService', 'nodeEvent', ( nodeService, nodeEvent ) => {
          $scope.$apply();
       } );
 
-
-      updateConn();
+      computePosition();
 
       $scope.$on( 'connectionNeedsUpdate', () => {
-         updateConn();
+         computePosition();
       } );
 
-      function updateConn() {
+      function computePosition() {
          var yOff = parseInt( $attrs.index ) * nodeCtrl.getRowHeight() + nodeCtrl.getHeaderHeight() + nodeCtrl.getConnHeightOffset() + nodeCtrl.getConnHeight() * 0.5;
          yOff += $scope.io.type === 0 ? nodeCtrl.getOffsetInput() : nodeCtrl.getOffsetOutput();
          $scope.io.position = {

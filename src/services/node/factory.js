@@ -5,7 +5,6 @@ module.exports = [ () => {
       constructor( name, parent ) {
          this.uuid = UUID();
          this.name = name;
-         this.data = null;
          this.getParent = () => { return parent; };
       }
    }
@@ -19,11 +18,9 @@ module.exports = [ () => {
       }
       connect( io ) {
          this.dest = io;
-         io.dest = this;
          this.available = false;
       }
       disconnect() {
-         this.dest.dest = null;
          this.dest = null;
          this.available = true;
       }
@@ -36,18 +33,19 @@ module.exports = [ () => {
       constructor( name, parent ) {
          super( name, parent );
          this.type = 1;
-         this.dest = null;
+         this.data = null;
       }
    }
 
    class Executable {
       constructor() {
-         this._fnstr = null;
+         this._fnstr = '';
          this._task = null;
       }
       compile() {
          try { this._task = new Function( 'input', this._fnstr ); }
-         catch ( e ) { console.error( e ); }
+         catch ( err ) { return err; }
+         return null;
       }
       execute() {
          var inpObj = {};
@@ -72,6 +70,10 @@ module.exports = [ () => {
          this.input = [];
          this.output = [];
          this.order = -1;
+         this.updateUI = () => this._ui.update = !this._ui.update;
+         this._ui = {
+            update: false
+         };
       }
       addInput() {
          for ( let i = 0; i < arguments.length; i ++ ) {

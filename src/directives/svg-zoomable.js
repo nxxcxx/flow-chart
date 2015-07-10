@@ -34,9 +34,6 @@ module.exports = [ () => {
 
          $scope.$broadcast( 'zoomed', ss );
 
-         // var gridSize = ~~( ss * 25.0 );
-         // $( '.view.right' ).css( 'background-size', `${gridSize}px ${gridSize}px` );
-
          $element.attr( 'transform', `matrix(${ss},${mat[1]},${mat[2]},${ss},${xx},${yy})` );
 
       } );
