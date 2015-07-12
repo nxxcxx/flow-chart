@@ -1,4 +1,4 @@
-module.exports = [ 'nodeService', 'nodeEvent', ( nodeService, nodeEvent ) => {
+module.exports = [ '$rootScope', 'nodeService', 'nodeEvent', ( $rootScope, nodeService, nodeEvent ) => {
 
    function link( $scope, $element, $attrs, $controllers ) {
 
@@ -11,6 +11,7 @@ module.exports = [ 'nodeService', 'nodeEvent', ( nodeService, nodeEvent ) => {
          dragCtrl.disableDrag();
          sortCtrl.disableSort();
          nodeEvent.startConnection( $scope.io );
+         $rootScope.$broadcast( 'tempLinkStart', $scope.io.position );
       } )
       .on( 'mouseleave', e => {
          dragCtrl.enableDrag();
@@ -35,7 +36,7 @@ module.exports = [ 'nodeService', 'nodeEvent', ( nodeService, nodeEvent ) => {
          var yOff = parseInt( $attrs.index ) * nodeCtrl.getRowHeight() + nodeCtrl.getHeaderHeight() + nodeCtrl.getConnHeightOffset() + nodeCtrl.getConnHeight() * 0.5;
          yOff += $scope.io.type === 0 ? nodeCtrl.getOffsetInput() : nodeCtrl.getOffsetOutput();
          $scope.io.position = {
-            left: dragCtrl.position.x + ( $scope.io.type ? nodeCtrl.getWidth() : 0 ),
+            left: dragCtrl.position.x + ( $scope.io.type ? nodeCtrl.getWidth() - 0.5 : 0 + 0.5 ),
             top: dragCtrl.position.y + yOff
          };
       }

@@ -10,7 +10,6 @@
 	<link rel="stylesheet" href="css/app.css">
 
 	<script src="bower_components/jquery/dist/jquery.js"></script>
-	<script src="bower_components/jquery-ui/jquery-ui.js"></script>
 	<script src="bower_components/angular/angular.js"></script>
 	<script src="bower_components/codemirror/lib/codemirror.js"></script>
 	<script src="bower_components/codemirror/mode/javascript/javascript.js"></script>
@@ -47,14 +46,18 @@
 
 				<rect id="control" fill="rgba(0, 0, 0, 0)" width="100%" height="100%"></rect>
 
-				<g handler="#control" svg-pannable svg-zoomable>
+				<g handler="#control" svg-pannable svg-zoomable transform="matrix(1.6,0,0,1.6,51,44)">
 
 					<!-- nodes -->
 					<node-module ng-repeat="node in nodeService.nodes track by node.uuid" node-object="node"></node-module>
 
 					<!-- connections -->
-					<g fill="none" stroke-width="1.25" stroke="black">
+					<g id="node-link">
 						<node-link ng-repeat="pair in nodeService.connections" pair="pair"></node-link>
+					</g>
+
+					<g id="node-link">
+						<node-temp-link></node-temp-link>
 					</g>
 
 				</g>

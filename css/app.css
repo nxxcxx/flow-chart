@@ -4,9 +4,27 @@
    src: url( font/Neou-Bold.ttf );
 }
 
+@font-face {
+   font-family: OpenSans;
+   src: url( font/OpenSans-Light.ttf );
+}
+
+@font-face {
+   font-family: Lane;
+   src: url( font/Lane.ttf );
+}
+
+@font-face {
+   font-family: Ubuntu;
+   src: url( font/Ubuntu-Regular.ttf );
+}
+
 html, body {
    /*font-family: Sans-serif;*/
-   font-family: Neou;
+   /*font-family: Neou;*/
+   /*font-family: Lane;*/
+   font-family: OpenSans;
+   /*font-family: Ubuntu;*/
    margin: 0px;
    padding: 0px;
    height: 100%;
@@ -31,88 +49,29 @@ html, body {
 
 .view.right {
    width: 70%;
-   background-color: #dddddd;
+   background-color: #182634;
 }
 
-.nodeBox {
-   cursor: default;
+#nodeCanvas {
    -webkit-touch-callout: none;
    -webkit-user-select: none;
    -khtml-user-select: none;
    -moz-user-select: none;
    -ms-user-select: none;
    user-select: none;
-}
-
-.nodeBox .head {
-   border-radius: 5px 5px 0px 0px;
-   background: rgb(72, 140, 196);
-   text-align: center;
-}
-
-.nodeBox .bodyLeft {
-   background: rgb(36, 170, 141);
-   text-align: left;
-   float: left;
-   border-radius: 0px 0px 0px 5px;
-}
-
-.bodyLeft .item {
-   margin-right: 5px;
-}
-
-.nodeBox .bodyRight {
-   background: rgb(246, 138, 85);
-   text-align: right;
-   float: right;
-   border-radius: 0px 0px 5px 0px;
-}
-
-.bodyRight .item {
-   margin-left: 5px;
-}
-
-ul {
-   list-style: none;
-   padding: 0px;
-   margin: 0px;
-}
-
-li {
-   display: block;
-}
-
-.conn {
-   background: rgb(78, 85, 89);
-   width: 15px;
-   height: 10px;
-   display: inline-block;
-   vertical-align: middle;
-}
-
-.conn-left {
-   border-radius: 0px 2px 2px 0px;
-}
-
-.conn-right {
-   border-radius: 2px 0px 0px 2px;
-}
-
-#nodeCanvas {
    height: 100%;
    width: 100%;
    display: block;
    font-size: 10px;
+   cursor: default;
 }
 
-pre {
-   white-space: pre-wrap;
-   margin: 0px;
-   padding: 0px;
-   border: 2px solid rgb(0, 149, 255);
-   font-size: 12px;
+#node-link {
+   stroke: rgba(255, 255, 255, 1.0);
+   stroke-width: 0.5px;
+   fill: none;
 }
 
-.form-input {
-   width: 50%;
+.node.label {
+   fill: #ffffff;
 }

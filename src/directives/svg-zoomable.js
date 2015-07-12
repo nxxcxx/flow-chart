@@ -1,24 +1,26 @@
 // jshint -W014
 module.exports = [ () => {
 
-   function link( $scope, $element, $attrs ) {
+   function controller( $scope, $element, $attrs ) {
+
+      this.scalingFactor = 1.6;
+
 
       if ( !$element.attr( 'transform' ) ) {
          $element.attr( 'transform', 'matrix(1,0,0,1,0,0)' );
+         this.scalingFactor = 1.0;
       }
 
       var numPattern = /[\d|\.|\+|-]+/g;
-
       var handler = $( $attrs.handler );
-      handler
-      .on( 'mousewheel', e => {
+      handler.on( 'mousewheel', e => {
 
          e.preventDefault();
          var mat = $element.attr( 'transform' ).match( numPattern ).map( v => parseFloat( v ) );
          var gain = 2.0
          , minz = 0.25
          , maxz = 10.0
-         , dd = gain * Math.sign( e.originalEvent.wheelDeltaY ) * 0.1
+         , dd = gain * Math.sign( e.originalEvent ? e.originalEvent.wheelDeltaY : 0.0 ) * 0.1
 
          , ss = mat[ 0 ] + ( mat[ 0 ] * dd )
          , sd = ss / mat[ 0 ]
@@ -32,18 +34,20 @@ module.exports = [ () => {
 
          if ( ss < minz || ss > maxz ) return;
 
-         $scope.$broadcast( 'zoomed', ss );
-
          $element.attr( 'transform', `matrix(${ss},${mat[1]},${mat[2]},${ss},${xx},${yy})` );
 
+         $scope.$broadcast( 'zoomed', ss, xx, yy );
+         this.scalingFactor = ss;
+
       } );
+
 
    }
 
    return {
 
       restrict: 'A',
-      link
+      controller
 
    };
 

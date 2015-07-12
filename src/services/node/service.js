@@ -59,7 +59,7 @@ module.exports = [ 'nodeFactory', ( nodeFactory ) => {
       n.compile();
       nodes.push( n );
 
-      n = nodeFactory.create( 'dot' );
+      n = nodeFactory.create( 'Dot' );
       n.addInput( 'v1', 'v2' );
       n.addOutput( 'f' );
       n._fnstr = 'return { f: input.v1[0]*input.v2[0]+input.v1[1]*input.v2[1]+input.v1[2]*input.v2[2] };';

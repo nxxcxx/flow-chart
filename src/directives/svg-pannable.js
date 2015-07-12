@@ -12,8 +12,14 @@ module.exports = [ () => {
       var prevPos = { x: null, y: null };
       var currPos = { x: null, y: null };
 
-      var mat = null;
       var numPattern = /[\d|\.|\+|-]+/g;
+      var mat = $element.attr( 'transform' );
+      mat = mat.match( numPattern ).map( v => parseFloat( v ) );
+
+      // todo if atrs.transform
+      this.position = { x: 0, y: 0 };
+      this.position.x = mat[ 4 ];
+      this.position.y = mat[ 5 ];
 
       var handler = $attrs.handler ? $attrs.handler : $element;
 
@@ -42,7 +48,7 @@ module.exports = [ () => {
       .on( 'mousemove', e => {
 
          if ( disabled ) return;
-         
+
          if ( mousehold ) {
 
             dragging = true;
@@ -69,8 +75,12 @@ module.exports = [ () => {
 
       } );
 
+      $scope.$on( 'zoomed', ( e, s, x, y ) => {
+         this.position.x = x;
+         this.position.y = y;
+      } );
+
       this.scalingFactor = 1.0;
-      this.position = { x: 0, y: 0 };
       this.disableDrag = () => disabled = true;
       this.enableDrag = () => disabled = false;
       this.addDragEvent = fn => {

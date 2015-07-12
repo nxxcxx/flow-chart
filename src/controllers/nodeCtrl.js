@@ -10,4 +10,7 @@ module.exports = [ '$scope', '$rootScope', 'nodeService', 'CM', ( $scope, $rootS
       $scope.$apply();
    };
 
+   // todo add / remove input, when add/remove input run apply this scope!
+   // webaudio
+
 } ];

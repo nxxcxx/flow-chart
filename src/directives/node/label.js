@@ -1,9 +1,9 @@
 module.exports = [ '$timeout', ( $timeout ) => {
 
-   function link( $scope, $element ) {
+   function link( $scope, $element, $attrs ) {
 
       $scope.$on( 'requestLabelWidth', ( e, setMaxLabelWidth ) => {
-         setMaxLabelWidth( $element[ 0 ].getComputedTextLength() );
+         setMaxLabelWidth( $attrs.nodeLabel , $element[ 0 ].getComputedTextLength() );
       } );
 
       $timeout( () => {
