@@ -75,16 +75,17 @@ module.exports = [ () => {
 
       } );
 
-      $scope.$on( 'zoomed', ( e, s, x, y ) => {
-         this.position.x = x;
-         this.position.y = y;
-      } );
-
       this.scalingFactor = 1.0;
       this.disableDrag = () => disabled = true;
       this.enableDrag = () => disabled = false;
       this.addDragEvent = fn => {
          dragEventFn.push( fn );
+      };
+
+      this.getPosition = () => {
+         mat = $element.attr( 'transform' );
+         mat = mat.match( numPattern ).map( v => parseFloat( v ) );
+         return { x: mat[ 4 ], y: mat[ 5 ] };
       };
 
    }

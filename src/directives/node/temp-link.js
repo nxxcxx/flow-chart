@@ -28,8 +28,10 @@ module.exports = [ '$rootScope', ( $rootScope ) => {
          var cx = e.pageX - off.left;
          var cy = e.pageY - off.top;
          var sc = zoomCtrl.scalingFactor;
-         var ox = panCtrl.position.x;
-         var oy = panCtrl.position.y;
+
+         var pos = panCtrl.getPosition();
+         var ox = pos.x;
+         var oy = pos.y;
 
          $scope.end.x = ( cx - ox ) / sc;
          $scope.end.y = ( cy - oy ) / sc;

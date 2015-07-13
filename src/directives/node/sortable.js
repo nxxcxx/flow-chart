@@ -21,7 +21,7 @@ module.exports = [ () => {
       this.endSort = n => {
          if ( disabled || !this.sorting ) return;
          tgt = n;
-         if ( curr !== null && tgt !== null && curr.io !== tgt.io ) {
+         if ( curr !== null && tgt !== null && curr !== tgt ) {
             swapRow( curr, tgt );
          }
       };
@@ -32,12 +32,11 @@ module.exports = [ () => {
       function swapRow( curr, tgt ) {
 
          var type = curr.type === 0 ? 'input' : 'output';
-         var t1 = $scope.nodeObject[ type ].indexOf( tgt.io );
-         var t2 = $scope.nodeObject[ type ].indexOf( curr.io );
+         var t1 = $scope.nodeObject[ type ].indexOf( tgt );
+         var t2 = $scope.nodeObject[ type ].indexOf( curr );
 
-         var temp = $scope.nodeObject[ type ][ t1 ];
-         $scope.nodeObject[ type ][ t1 ] = $scope.nodeObject[ type ][ t2 ];
-         $scope.nodeObject[ type ][ t2 ] = temp;
+         $scope.nodeObject[ type ][ t1 ] = curr;
+         $scope.nodeObject[ type ][ t2 ] = tgt;
 
          $scope.$digest();
          $scope.$broadcast( 'connectionNeedsUpdate' );

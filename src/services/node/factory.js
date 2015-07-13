@@ -6,6 +6,7 @@ module.exports = [ () => {
          this.uuid = UUID();
          this.name = name;
          this.getParent = () => { return parent; };
+         this.available = true;
       }
    }
 
@@ -14,13 +15,14 @@ module.exports = [ () => {
          super( name, parent );
          this.type = 0;
          this.dest = null;
-         this.available = true;
       }
       connect( io ) {
          this.dest = io;
          this.available = false;
+         io.available = false;
       }
       disconnect() {
+         this.dest.available = true;
          this.dest = null;
          this.available = true;
       }

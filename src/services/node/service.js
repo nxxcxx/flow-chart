@@ -38,7 +38,7 @@ module.exports = [ 'nodeFactory', ( nodeFactory ) => {
    function generateNode() {
 
       var n;
-
+      
       n = nodeFactory.create( 'Constants' );
       n.addOutput( 'x', 'y', 'z' );
       n._fnstr = 'return { x: 42, y: 33, z: 76 };';

@@ -77,8 +77,6 @@ module.exports = [ '$timeout', ( $timeout ) => {
          $scope.offsetInput = 0;
          $scope.offsetOutput = 0;
 
-         console.log( $scope.numInput, $scope.numOutput );
-
          computedHeaderWidth = 0;
          maxComputedInputWidth = 0;
          maxComputedOutputWidth = 0;

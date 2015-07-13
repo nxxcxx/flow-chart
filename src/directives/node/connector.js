@@ -6,6 +6,8 @@ module.exports = [ '$rootScope', 'nodeService', 'nodeEvent', ( $rootScope, nodeS
       var dragCtrl = $controllers[ 1 ];
       var sortCtrl = $controllers[ 2 ];
 
+      $scope.hover = true;
+
       $element
       .on( 'mousedown', e => {
          dragCtrl.disableDrag();
@@ -13,9 +15,15 @@ module.exports = [ '$rootScope', 'nodeService', 'nodeEvent', ( $rootScope, nodeS
          nodeEvent.startConnection( $scope.io );
          $rootScope.$broadcast( 'tempLinkStart', $scope.io.position );
       } )
+      .on( 'mouseenter', e => {
+         $scope.hover = true;
+         $scope.$apply();
+      } )
       .on( 'mouseleave', e => {
          dragCtrl.enableDrag();
          sortCtrl.enableSort();
+         $scope.hover = false;
+         $scope.$apply();
       } )
       .on( 'mouseup', e => {
          nodeEvent.endConnection( $scope.io );

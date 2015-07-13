@@ -1,0 +1,61 @@
+<g node-sortable>
+   <g node-sort-item
+      ng-attr-transform="translate( 0, {{ offsetInput }} )"
+      ng-repeat="input in nodeObject.input track by input.uuid">
+         <rect item
+            fill="rgba(255, 255, 255, 0.0)"
+            x="0"
+            ng-attr-y="{{ $index * rowHeight + headerHeight }}"
+            ng-attr-width="{{ width * 0.5 }}"
+            ng-attr-height="{{ rowHeight }}"/>
+         <rect node-connector
+            fill="{{ hover ? 'rgba(255, 255, 255, 0.5)' : 'rgba(255, 255, 255, 0.0)' }}"
+            stroke="rgba(255, 255, 255, 1.0)"
+            stroke-width="0.5"
+            index="{{ $index }}"
+            io="input"
+            parent-uuid="{{ nodeObject.uuid }}"
+            ng-attr-x="{{ connWidthOffset }}"
+            ng-attr-y="{{ $index * rowHeight + headerHeight + connHeightOffset }}"
+            ng-attr-width="{{ connWidth }}"
+            ng-attr-height="{{ connHeight }}"/>
+         <text node-label="input" class="node label"
+            ng-attr-x="{{ connWidth + labelSpacing }}"
+            ng-attr-y="{{ $index * rowHeight + headerHeight + ( rowHeight * 0.5 ) }}"
+            text-anchor="start"
+            style="alignment-baseline: middle;">
+            {{ input.name }}
+         </text>
+   </g>
+</g>
+
+<g node-sortable>
+   <g node-sort-item
+      ng-attr-transform="translate( 0, {{ offsetOutput }} )"
+      ng-repeat="output in nodeObject.output track by output.uuid" >
+         <rect item
+            fill="rgba(255, 255, 255, 0.0)"
+            ng-attr-x="{{ width * 0.5 }}"
+            ng-attr-y="{{ $index * rowHeight + headerHeight }}"
+            ng-attr-width="{{ width * 0.5 }}"
+            ng-attr-height="{{ rowHeight }}" />
+         <rect node-connector
+            fill="{{ hover ? 'rgba(255, 255, 255, 0.5)' : 'rgba(255, 255, 255, 0.0)' }}"
+            stroke="rgba(255, 255, 255, 1.0)"
+            stroke-width="0.5"
+            index="{{ $index }}"
+            io="output"
+            parent-uuid="{{ nodeObject.uuid }}"
+            ng-attr-x="{{ width - connWidth - connWidthOffset }}"
+            ng-attr-y="{{ $index * rowHeight + headerHeight + connHeightOffset }}"
+            ng-attr-width="{{ connWidth }}"
+            ng-attr-height="{{ connHeight }}"/>
+         <text node-label="output" class="node label"
+            ng-attr-x="{{ width - connWidth - labelSpacing }}"
+            ng-attr-y="{{ $index * rowHeight + headerHeight + ( rowHeight * 0.5 ) }}"
+            text-anchor="end"
+            style="alignment-baseline: middle;">
+            {{ output.name }}
+         </text>
+   </g>
+</g>
