@@ -1,4 +1,4 @@
-module.exports = [ '$timeout', ( $timeout ) => {
+module.exports = [ 'log', '$timeout', ( log, $timeout ) => {
 
    function link( $scope, $element, $attrs, $controllers ) {
 
@@ -18,8 +18,8 @@ module.exports = [ '$timeout', ( $timeout ) => {
 
       svgPannableCtrl.scalingFactor = svgZoomableCtrl.scalingFactor;
 
-      console.log( $scope.$id, 'Node', $scope );
-      
+      log.debug( 'Scope', $scope.$id, 'Node', $scope );
+
    }
 
    function controller( $scope, $element, $attrs ) {
@@ -88,7 +88,7 @@ module.exports = [ '$timeout', ( $timeout ) => {
       require: [ '^svgPannable', '^svgZoomable' ],
       templateNamespace: 'svg',
       templateUrl: './template/node.html',
-      scope: true,
+      // scope: true,
       link,
       controller
 

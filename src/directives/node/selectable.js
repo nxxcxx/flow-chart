@@ -1,4 +1,4 @@
-module.exports = [ 'nodeService', 'CM', ( nodeService, CM ) => {
+module.exports = [ 'log', 'nodeService', 'CM', ( log, nodeService, CM ) => {
 
    function link( $scope, $element, $attrs, $controllers ) {
 
@@ -13,7 +13,7 @@ module.exports = [ 'nodeService', 'CM', ( nodeService, CM ) => {
          else $scope.isSelected = false;
       } );
 
-      console.log( $scope.$id, 'Selectable', $scope );
+      log.debug( 'Scope', $scope.$id, 'Selectable', $scope );
 
    }
 

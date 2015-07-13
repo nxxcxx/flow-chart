@@ -39,11 +39,11 @@ module.exports = [ 'nodeFactory', ( nodeFactory ) => {
 
       var n;
 
-      // n = nodeFactory.create( 'Constants' );
-      // n.addOutput( 'x', 'y', 'z' );
-      // n._fnstr = 'return { x: 42, y: 33, z: 76 };';
-      // n.compile();
-      // nodes.push( n );
+      n = nodeFactory.create( 'Constants' );
+      n.addOutput( 'x', 'y', 'z' );
+      n._fnstr = 'return { x: 42, y: 33, z: 76 };';
+      n.compile();
+      nodes.push( n );
 
       n = nodeFactory.create( 'Vector3' );
       n.addInput( 'u', 'v', 'w' );
@@ -52,25 +52,25 @@ module.exports = [ 'nodeFactory', ( nodeFactory ) => {
       n.compile();
       nodes.push( n );
 
-      // n = nodeFactory.create( 'Vector3' );
-      // n.addInput( 's', 't', 'p' );
-      // n.addOutput( 'vec3' );
-      // n._fnstr = 'return { vec3: [ input.s, input.t, input.p ] };';
-      // n.compile();
-      // nodes.push( n );
-      //
-      // n = nodeFactory.create( 'Dot' );
-      // n.addInput( 'v1', 'v2' );
-      // n.addOutput( 'f' );
-      // n._fnstr = 'return { f: input.v1[0]*input.v2[0]+input.v1[1]*input.v2[1]+input.v1[2]*input.v2[2] };';
-      // n.compile();
-      // nodes.push( n );
-      //
-      // n = nodeFactory.create( 'Console' );
-      // n.addInput( 'log' );
-      // n._fnstr = 'console.log( input.log );';
-      // n.compile();
-      // nodes.push( n );
+      n = nodeFactory.create( 'Vector3' );
+      n.addInput( 's', 't', 'p' );
+      n.addOutput( 'vec3' );
+      n._fnstr = 'return { vec3: [ input.s, input.t, input.p ] };';
+      n.compile();
+      nodes.push( n );
+
+      n = nodeFactory.create( 'Dot' );
+      n.addInput( 'v1', 'v2' );
+      n.addOutput( 'f' );
+      n._fnstr = 'return { f: input.v1[0]*input.v2[0]+input.v1[1]*input.v2[1]+input.v1[2]*input.v2[2] };';
+      n.compile();
+      nodes.push( n );
+
+      n = nodeFactory.create( 'Console' );
+      n.addInput( 'log' );
+      n._fnstr = 'console.log( input.log );';
+      n.compile();
+      nodes.push( n );
 
    }
 

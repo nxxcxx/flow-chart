@@ -4,6 +4,7 @@ global.TOPOSORT = require( 'toposort' );
 global.CJSON = require( 'circular-json' );
 
 angular.module( 'nodeApp', [] )
+	.provider( 'log', require( './provider/logProvider' ) )
 	.factory( 'nodeService', require( './services/node/service' ) )
 	.factory( 'nodeFactory', require( './services/node/factory' ) )
 	.factory( 'nodeEvent', require( './services/node/event' ) )
@@ -21,4 +22,11 @@ angular.module( 'nodeApp', [] )
 	.directive( 'svgPannable', require( './directives/svg-pannable' ) )
 	.directive( 'svgZoomable', require( './directives/svg-zoomable' ) )
 	.directive( 'codeMirror', require( './directives/codeMirror' ) )
-	.filter( 'cjson', require( './filters/cjson' ) );
+	.filter( 'cjson', require( './filters/cjson' ) )
+	.config( [ 'logProvider', ( logProvider ) => {
+
+		logProvider.enableDebug();
+		logProvider.enableDebugNamespace( 'Scope' );
+
+	} ] )
+	;

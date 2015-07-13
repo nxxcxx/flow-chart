@@ -1,4 +1,4 @@
-module.exports = [ '$rootScope', 'nodeService', 'nodeEvent', ( $rootScope, nodeService, nodeEvent ) => {
+module.exports = [ 'log', '$rootScope', 'nodeService', 'nodeEvent', ( log, $rootScope, nodeService, nodeEvent ) => {
 
    function link( $scope, $element, $attrs, $controllers ) {
 
@@ -59,7 +59,7 @@ module.exports = [ '$rootScope', 'nodeService', 'nodeEvent', ( $rootScope, nodeS
          };
       }
 
-      console.log( $scope.$id, 'Connector', $scope );
+      log.debug( 'Scope', $scope.$id, 'Connector', $scope );
 
    }
 

@@ -1,4 +1,4 @@
-module.exports = [ () => {
+module.exports = [ 'log', ( log ) => {
 
    function link( $scope, $element, $attrs, $controllers ) {
 
@@ -24,7 +24,7 @@ module.exports = [ () => {
          sortCtrl.sorting = false;
       } );
 
-      console.log( $scope.$id, 'Sortitem', $scope );
+      log.debug( 'Scope', $scope.$id, 'Sortitem', $scope );
 
    }
 

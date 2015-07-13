@@ -1,9 +1,9 @@
 // jshint -W014
-module.exports = [ () => {
+module.exports = [ 'log', ( log ) => {
 
    function controller( $scope, $element, $attrs ) {
 
-      this.scalingFactor = 1.6;
+      this.scalingFactor = 2.0;
 
       if ( !$element.attr( 'transform' ) ) {
          $element.attr( 'transform', 'matrix(1,0,0,1,0,0)' );
@@ -40,7 +40,7 @@ module.exports = [ () => {
 
       } );
 
-      console.log( $scope.$id, 'Zoomable', $scope );
+      log.debug( 'Scope', $scope.$id, 'Zoomable', $scope );
 
    }
 

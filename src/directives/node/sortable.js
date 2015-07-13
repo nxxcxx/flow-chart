@@ -1,4 +1,4 @@
-module.exports = [ () => {
+module.exports = [ 'log', ( log ) => {
 
    function controller( $scope, $element, $attrs ) {
 
@@ -44,7 +44,7 @@ module.exports = [ () => {
 
       }
 
-      console.log( $scope.$id, 'Sortable', $scope );
+      log.debug( 'Scope', $scope.$id, 'Sortable', $scope );
 
    }
 
@@ -52,7 +52,7 @@ module.exports = [ () => {
 
       restrict: 'A',
       controller
-      
+
    };
 
 } ];

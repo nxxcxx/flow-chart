@@ -1,4 +1,4 @@
-module.exports = [ '$timeout', ( $timeout ) => {
+module.exports = [ 'log', '$timeout', ( log, $timeout ) => {
 
    function link( $scope, $element, $attrs ) {
 
@@ -10,7 +10,7 @@ module.exports = [ '$timeout', ( $timeout ) => {
          if ( $scope.$last ) $scope.nodeObject.updateUI();
       } );
 
-      console.log( $scope.$id, 'Label', $attrs.nodeLabel, $scope );
+      log.debug( 'Scope', $scope.$id, 'Label', $attrs.nodeLabel, $scope );
 
    }
 

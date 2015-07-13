@@ -1,4 +1,4 @@
-module.exports = [ () => {
+module.exports = [ 'log', ( log ) => {
 
    function controller( $scope, $element, $attrs ) {
 
@@ -88,7 +88,7 @@ module.exports = [ () => {
          return { x: mat[ 4 ], y: mat[ 5 ] };
       };
 
-      console.log( $scope.$id, 'Pannable', $scope );
+      log.debug( 'Scope', $scope.$id, 'Pannable', $scope );
 
    }
 

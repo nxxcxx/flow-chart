@@ -1,11 +1,11 @@
-module.exports = [ () => {
+module.exports = [ 'log', ( log ) => {
 
 	function link( $scope, $element, $attrs ) {
 
       $scope.type = $attrs.type;
       $scope.ioArray = $scope.nodeObject[ $attrs.type ];
 
-      console.log( $scope.$id, 'IOCol', $attrs.type, $scope );
+      log.debug( 'Scope', $scope.$id, 'IOCol', $attrs.type, $scope );
 
 	}
 
