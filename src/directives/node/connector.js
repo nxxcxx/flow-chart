@@ -6,8 +6,6 @@ module.exports = [ '$rootScope', 'nodeService', 'nodeEvent', ( $rootScope, nodeS
       var dragCtrl = $controllers[ 1 ];
       var sortCtrl = $controllers[ 2 ];
 
-      $scope.hover = true;
-
       $element
       .on( 'mousedown', e => {
          dragCtrl.disableDrag();
@@ -16,14 +14,12 @@ module.exports = [ '$rootScope', 'nodeService', 'nodeEvent', ( $rootScope, nodeS
          $rootScope.$broadcast( 'tempLinkStart', $scope.io.position );
       } )
       .on( 'mouseenter', e => {
-         $scope.hover = true;
-         $scope.$apply();
+
       } )
       .on( 'mouseleave', e => {
          dragCtrl.enableDrag();
          sortCtrl.enableSort();
-         $scope.hover = false;
-         $scope.$apply();
+
       } )
       .on( 'mouseup', e => {
          nodeEvent.endConnection( $scope.io );
@@ -42,7 +38,6 @@ module.exports = [ '$rootScope', 'nodeService', 'nodeEvent', ( $rootScope, nodeS
 
       function computePosition() {
          var yOff = parseInt( $attrs.index ) * nodeCtrl.getRowHeight() + nodeCtrl.getHeaderHeight() + nodeCtrl.getConnHeightOffset() + nodeCtrl.getConnHeight() * 0.5;
-         yOff += $scope.io.type === 0 ? nodeCtrl.getOffsetInput() : nodeCtrl.getOffsetOutput();
          $scope.io.position = {
             left: dragCtrl.position.x + ( $scope.io.type ? nodeCtrl.getWidth() - 0.5 : 0 + 0.5 ),
             top: dragCtrl.position.y + yOff

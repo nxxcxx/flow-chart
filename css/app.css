@@ -1,4 +1,3 @@
-
 @font-face {
    font-family: Neou;
    src: url( font/Neou-Bold.ttf );
@@ -19,12 +18,18 @@
    src: url( font/Ubuntu-Regular.ttf );
 }
 
+@font-face {
+   font-family: Orbitron;
+   src: url( font/orbitron-light.otf );
+}
+
 html, body {
    /*font-family: Sans-serif;*/
    /*font-family: Neou;*/
    /*font-family: Lane;*/
-   font-family: OpenSans;
+   /*font-family: OpenSans;*/
    /*font-family: Ubuntu;*/
+   font-family: Orbitron;
    margin: 0px;
    padding: 0px;
    height: 100%;
@@ -62,8 +67,8 @@ html, body {
    height: 100%;
    width: 100%;
    display: block;
-   font-size: 10px;
    cursor: default;
+   font-size: 9px;
 }
 
 #node-link {
@@ -74,4 +79,6 @@ html, body {
 
 .node.label {
    fill: #ffffff;
+}
+.node.label.header {
 }

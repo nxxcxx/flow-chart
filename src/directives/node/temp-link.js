@@ -8,15 +8,13 @@ module.exports = [ '$rootScope', ( $rootScope ) => {
       var panCtrl = $controllers[ 0 ];
       var zoomCtrl = $controllers[ 1 ];
       $scope.active = false;
-      $scope.start = { x: 0, y: 0 };
-      $scope.cp1 = { x: 0, y: 0 };
-      $scope.cp2 = { x: 0, y: 0 };
-      $scope.end = { x: 0, y: 0 };
 
       $rootScope.$on( 'tempLinkStart', ( e, pos ) => {
          $scope.active = true;
-         $scope.start.x = pos.left;
-         $scope.start.y = pos.top;
+         $scope.start = {
+            x: pos.left,
+            y: pos.top
+         };
          $scope.cp1 = $scope.start;
       } );
 
@@ -33,11 +31,14 @@ module.exports = [ '$rootScope', ( $rootScope ) => {
          var ox = pos.x;
          var oy = pos.y;
 
-         $scope.end.x = ( cx - ox ) / sc;
-         $scope.end.y = ( cy - oy ) / sc;
-
+         $scope.end = {
+            x: ( cx - ox ) / sc,
+            y: ( cy - oy ) / sc
+         };
          $scope.cp2 = $scope.end;
+
          $scope.$digest();
+
       } )
       .on( 'mouseup', e => {
          $scope.active = false;
@@ -53,11 +54,9 @@ module.exports = [ '$rootScope', ( $rootScope ) => {
       require: [ '^svgPannable', '^svgZoomable' ],
 		templateNamespace: 'svg',
 		template: '<path ng-show="active" ng-attr-d="M{{start.x}},{{start.y}} C{{cp1.x}},{{cp1.y}} {{cp2.x}},{{cp2.y}} {{end.x}},{{end.y}}"/>',
-		scope: {
-			pair: '='
-		},
+		scope: {},
 		link
 
-	}
+	};
 
 } ];

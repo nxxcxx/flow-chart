@@ -1,7 +1,5 @@
 <g node-sortable>
-   <g node-sort-item
-      ng-attr-transform="translate( 0, {{ offsetInput }} )"
-      ng-repeat="io in ioArray track by io.uuid">
+   <g node-sort-item ng-repeat="io in ioArray track by io.uuid">
          <rect item
             fill="rgba(255, 255, 255, 0.0)"
             x="0"
@@ -10,7 +8,7 @@
             ng-attr-width="{{ width * 0.5 }}"
             ng-attr-height="{{ rowHeight }}"/>
          <rect node-connector
-            fill="{{ hover ? 'rgba(255, 255, 255, 0.5)' : 'rgba(255, 255, 255, 0.0)' }}"
+            fill="{{ !io.available ? 'rgba(255, 255, 255, 0.5)' : 'rgba(255, 255, 255, 0.0)' }}"
             stroke="rgba(255, 255, 255, 1.0)"
             stroke-width="0.5"
             index="{{ $index }}"

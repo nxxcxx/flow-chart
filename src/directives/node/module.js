@@ -34,8 +34,6 @@ module.exports = [ '$timeout', ( $timeout ) => {
 
       $scope.numInput = $scope.nodeObject.input.length;
       $scope.numOutput = $scope.nodeObject.output.length;
-      $scope.offsetInput = 0;
-      $scope.offsetOutput = 0;
 
       this.getHeaderHeight     = () => { return $scope.headerHeight; };
       this.getWidth            = () => { return $scope.width; };
@@ -43,8 +41,6 @@ module.exports = [ '$timeout', ( $timeout ) => {
       this.getConnWidth        = () => { return $scope.connWidth; };
       this.getConnHeight       = () => { return $scope.connHeight; };
       this.getConnHeightOffset = () => { return $scope.connHeightOffset; };
-      this.getOffsetInput      = () => { return $scope.offsetInput; };
-      this.getOffsetOutput     = () => { return $scope.offsetOutput; };
 
       var computedHeaderWidth = 0;
       var maxComputedInputWidth = 0;
@@ -66,16 +62,9 @@ module.exports = [ '$timeout', ( $timeout ) => {
          $scope.height = $scope.headerHeight + ( maxConn * $scope.rowHeight );
       }
 
-      function computeVerticalOffsetIO() {
-         $scope.offsetInput = ( ($scope.height - $scope.headerHeight) * 0.5 ) - ( $scope.numInput * $scope.rowHeight ) * 0.5;
-         $scope.offsetOutput = ( ($scope.height - $scope.headerHeight) * 0.5 ) - ( $scope.numOutput * $scope.rowHeight ) * 0.5;
-      }
-
       function updateUI() {
          $scope.numInput = $scope.nodeObject.input.length;
          $scope.numOutput = $scope.nodeObject.output.length;
-         $scope.offsetInput = 0;
-         $scope.offsetOutput = 0;
 
          computedHeaderWidth = 0;
          maxComputedInputWidth = 0;

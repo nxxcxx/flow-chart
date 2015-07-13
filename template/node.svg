@@ -6,7 +6,7 @@
    <rect header
       ng-attr-fill="{{ isSelected ? 'rgba(255, 255, 255, 0.2)': 'rgba(255, 255, 255, 0.1)' }}"
       x="0" y="0" ng-attr-width="{{ width }}" ng-attr-height="{{ headerHeight }}" />
-   <text node-label="header" class="node label"
+   <text node-label="header" class="node label header"
       ng-attr-x="{{ 2 }}"
       ng-attr-y="{{ headerHeight * 0.5 }}"
       text-anchor="start"
