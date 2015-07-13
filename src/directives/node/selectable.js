@@ -13,6 +13,8 @@ module.exports = [ 'nodeService', 'CM', ( nodeService, CM ) => {
          else $scope.isSelected = false;
       } );
 
+      console.log( $scope.$id, 'Selectable', $scope );
+
    }
 
    return {

@@ -1,0 +1,11 @@
+<rect
+   fill="{{ linking || hover || !io.available ? 'rgba(255, 255, 255, 0.5)' : 'rgba(255, 255, 255, 0.0)' }}"
+   stroke="rgba(255, 255, 255, 1.0)"
+   stroke-width="0.5"
+   index="{{ $index }}"
+   parent-uuid="{{ nodeObject.uuid }}"
+   ng-attr-x="{{ io.type === 0 ? connWidthOffset : width - connWidth - connWidthOffset }}"
+   ng-attr-y="{{ $index * rowHeight + headerHeight + connHeightOffset }}"
+   ng-attr-width="{{ connWidth }}"
+   ng-attr-height="{{ connHeight }}"
+/>

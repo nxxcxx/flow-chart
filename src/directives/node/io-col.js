@@ -5,6 +5,8 @@ module.exports = [ () => {
       $scope.type = $attrs.type;
       $scope.ioArray = $scope.nodeObject[ $attrs.type ];
 
+      console.log( $scope.$id, 'IOCol', $attrs.type, $scope );
+
 	}
 
 	return {
@@ -12,7 +14,7 @@ module.exports = [ () => {
 		restrict: 'E',
 		replace: true,
 		templateNamespace: 'svg',
-		templateUrl: './template/io-col.svg',
+		templateUrl: './template/io-col.html',
 		scope: true,
 		link
 

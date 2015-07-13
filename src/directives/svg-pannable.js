@@ -88,12 +88,13 @@ module.exports = [ () => {
          return { x: mat[ 4 ], y: mat[ 5 ] };
       };
 
+      console.log( $scope.$id, 'Pannable', $scope );
+
    }
 
    return {
 
       restrict: 'A',
-      scope: false,
       controller
 
    };

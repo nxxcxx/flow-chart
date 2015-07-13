@@ -18,6 +18,8 @@ module.exports = [ '$timeout', ( $timeout ) => {
 
       svgPannableCtrl.scalingFactor = svgZoomableCtrl.scalingFactor;
 
+      console.log( $scope.$id, 'Node', $scope );
+      
    }
 
    function controller( $scope, $element, $attrs ) {
@@ -72,7 +74,6 @@ module.exports = [ '$timeout', ( $timeout ) => {
          $scope.$broadcast( 'requestLabelWidth', requestLabelWidth );
          computeWidth();
          computeHeight();
-         // computeVerticalOffsetIO();
          $scope.$broadcast( 'connectionNeedsUpdate' );
       }
 
@@ -81,16 +82,16 @@ module.exports = [ '$timeout', ( $timeout ) => {
    }
 
    return {
+
       restrict: 'E',
       replace: true,
       require: [ '^svgPannable', '^svgZoomable' ],
       templateNamespace: 'svg',
-      templateUrl: './template/node.svg',
-      scope: {
-         nodeObject: '='
-      },
+      templateUrl: './template/node.html',
+      scope: true,
       link,
       controller
+
    };
 
 } ];

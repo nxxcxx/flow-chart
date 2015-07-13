@@ -5,7 +5,6 @@ module.exports = [ () => {
 
       this.scalingFactor = 1.6;
 
-
       if ( !$element.attr( 'transform' ) ) {
          $element.attr( 'transform', 'matrix(1,0,0,1,0,0)' );
          this.scalingFactor = 1.0;
@@ -41,6 +40,7 @@ module.exports = [ () => {
 
       } );
 
+      console.log( $scope.$id, 'Zoomable', $scope );
 
    }
 

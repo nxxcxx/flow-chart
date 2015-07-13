@@ -10,6 +10,8 @@ module.exports = [ '$timeout', ( $timeout ) => {
          if ( $scope.$last ) $scope.nodeObject.updateUI();
       } );
 
+      console.log( $scope.$id, 'Label', $attrs.nodeLabel, $scope );
+
    }
 
    return {

@@ -24,6 +24,8 @@ module.exports = [ () => {
          sortCtrl.sorting = false;
       } );
 
+      console.log( $scope.$id, 'Sortitem', $scope );
+
    }
 
    return {

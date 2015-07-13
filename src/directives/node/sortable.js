@@ -5,8 +5,8 @@ module.exports = [ () => {
       var curr = null;
       var tgt = null;
 
-      this.sorting = false;
       var disabled = false;
+      this.sorting = false;
 
       this.reset = () => {
          curr = null;
@@ -44,11 +44,15 @@ module.exports = [ () => {
 
       }
 
+      console.log( $scope.$id, 'Sortable', $scope );
+
    }
 
    return {
+
       restrict: 'A',
       controller
+      
    };
 
 } ];
