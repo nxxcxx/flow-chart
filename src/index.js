@@ -5,6 +5,7 @@ global.CJSON = require( 'circular-json' );
 
 angular.module( 'nodeApp', [] )
 	.provider( 'log', require( './provider/logProvider' ) )
+	.service( 'updateLinkEvent', require( './services/events/updateLinkEvent' ) )
 	.factory( 'nodeService', require( './services/node/service' ) )
 	.factory( 'nodeFactory', require( './services/node/factory' ) )
 	.factory( 'nodeEvent', require( './services/node/event' ) )
@@ -26,7 +27,7 @@ angular.module( 'nodeApp', [] )
 	.config( [ 'logProvider', ( logProvider ) => {
 
 		logProvider.enableDebug();
-		logProvider.enableDebugNamespace( 'Scope' );
+		// logProvider.enableDebugNamespace( 'Scope' );
 
 	} ] )
 	;

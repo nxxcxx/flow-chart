@@ -1,4 +1,4 @@
-module.exports = [ 'log', '$timeout', ( log, $timeout ) => {
+module.exports = [ 'log', 'updateLinkEvent', ( log, updateLinkEvent ) => {
 
    function link( $scope, $element, $attrs, $controllers ) {
 
@@ -8,7 +8,7 @@ module.exports = [ 'log', '$timeout', ( log, $timeout ) => {
       svgPannableCtrl.addDragEvent( () => {
 
          $scope.$broadcast( 'connectionNeedsUpdate' );
-         $scope.$apply();
+         updateLinkEvent.broadcast();
 
       } );
 
@@ -30,7 +30,7 @@ module.exports = [ 'log', '$timeout', ( log, $timeout ) => {
       $scope.rowHeight = 10;
       $scope.connWidth = 5;
       $scope.connHeight = 5;
-      $scope.connWidthOffset = 0.5;
+      $scope.connWidthOffset = -0.5;
       $scope.connHeightOffset = 2.5;
       $scope.labelSpacing = 2;
 
@@ -88,7 +88,6 @@ module.exports = [ 'log', '$timeout', ( log, $timeout ) => {
       require: [ '^svgPannable', '^svgZoomable' ],
       templateNamespace: 'svg',
       templateUrl: './template/node.html',
-      // scope: true,
       link,
       controller
 

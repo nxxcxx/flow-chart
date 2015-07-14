@@ -71,14 +71,37 @@ html, body {
    font-size: 9px;
 }
 
-#node-link {
-   stroke: rgba(255, 255, 255, 1.0);
+.node-link {
    stroke-width: 0.5px;
+   stroke: rgba(255, 255, 255, 1.0);
    fill: none;
 }
+.node.body {
+   stroke-width: 0.5px;
+   stroke: rgba(255, 255, 255, 0.5);
+   fill: rgba( 255, 255, 255, 0.1 );
+}
+.node.body.selected {
 
+}
+.node.header {
+   fill: rgba( 255, 255, 255, 0.1 );
+}
+.node.header.selected {
+   fill: rgba( 255, 255, 255, 0.2 );
+}
 .node.label {
-   fill: #ffffff;
+   fill: #fff;
+   font-size: 5px;
 }
 .node.label.header {
+   font-size: 6px;
+}
+.node.connector {
+   stroke-width: 1.0px;
+   stroke: #182634;
+   fill: #182634;
+}
+.node.connector.selected {
+   fill: #fff;
 }

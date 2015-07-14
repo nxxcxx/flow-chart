@@ -1,6 +1,5 @@
 <rect
-   fill="{{ linking || hover || !io.available ? 'rgba(255, 255, 255, 0.5)' : 'rgba(255, 255, 255, 0.0)' }}"
-   stroke="rgba(255, 255, 255, 1.0)"
+   ng-class=" linking || hover || !io.available ? 'node connector selected' : 'node connector' "
    stroke-width="0.5"
    index="{{ $index }}"
    parent-uuid="{{ nodeObject.uuid }}"

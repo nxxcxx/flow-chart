@@ -1,4 +1,4 @@
-module.exports = [ () => {
+module.exports = [ 'updateLinkEvent', ( updateLinkEvent ) => {
 
 	function link( $scope ) {
 
@@ -27,7 +27,11 @@ module.exports = [ () => {
 		}
 
 		function watcher() { return [ $scope.pair[ 0 ].position, $scope.pair[ 1 ].position ]; }
-		$scope.$watch( watcher, updateConnection , true );
+		$scope.$watch( watcher, updateConnection, true );
+
+		updateLinkEvent.listen( () => {
+			$scope.$digest();
+		} );
 
 	}
 
@@ -37,9 +41,7 @@ module.exports = [ () => {
 		replace: true,
 		templateNamespace: 'svg',
 		template: '<path ng-attr-d="M{{start.x}},{{start.y}} C{{cp1.x}},{{cp1.y}} {{cp2.x}},{{cp2.y}} {{end.x}},{{end.y}}"/>',
-		scope: {
-			pair: '='
-		},
+		scope: true,
 		link
 
 	};

@@ -1,4 +1,4 @@
-module.exports = [ 'log', ( log ) => {
+module.exports = [ 'log', 'updateLinkEvent', ( log, updateLinkEvent ) => {
 
    function controller( $scope, $element, $attrs ) {
 
@@ -23,6 +23,9 @@ module.exports = [ 'log', ( log ) => {
          tgt = n;
          if ( curr !== null && tgt !== null && curr !== tgt ) {
             swapRow( curr, tgt );
+            $scope.$digest();
+            $scope.$broadcast( 'connectionNeedsUpdate' );
+            updateLinkEvent.broadcast();
          }
       };
 
@@ -37,10 +40,6 @@ module.exports = [ 'log', ( log ) => {
 
          $scope.nodeObject[ type ][ t1 ] = curr;
          $scope.nodeObject[ type ][ t2 ] = tgt;
-
-         $scope.$digest();
-         $scope.$broadcast( 'connectionNeedsUpdate' );
-         $scope.$apply();
 
       }
 

@@ -1,11 +1,14 @@
 <g node-selectable svg-pannable>
 
-   <rect box fill="rgba(255, 255, 255, 0.0)"
-      x="0" y="0" ng-attr-width="{{ width }}" ng-attr-height="{{ height }}" />
+   <rect box
+      ng-class=" isSelected ? 'node body selected' : 'node body' "
+      x="0" y="0" ng-attr-width="{{ width }}" ng-attr-height="{{ height }}"
+   />
 
    <rect header
-      ng-attr-fill="{{ isSelected ? 'rgba(255, 255, 255, 0.2)': 'rgba(255, 255, 255, 0.1)' }}"
-      x="0" y="0" ng-attr-width="{{ width }}" ng-attr-height="{{ headerHeight }}" />
+      ng-class=" isSelected ? 'node header selected' : 'node header' "
+      x="0" y="0" ng-attr-width="{{ width }}" ng-attr-height="{{ headerHeight }}"
+   />
    <text node-label="header" class="node label header"
       ng-attr-x="{{ 2 }}"
       ng-attr-y="{{ headerHeight * 0.5 }}"
@@ -23,5 +26,7 @@
 
    <node-col type="input"></node-col>
    <node-col type="output"></node-col>
+
+
 
 </g>

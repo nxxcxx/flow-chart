@@ -51,8 +51,8 @@
 					<node-module ng-repeat="nodeObject in nodeService.nodes track by nodeObject.uuid"></node-module>
 
 					<!-- connections -->
-					<g id="node-link">
-						<node-link ng-repeat="pair in nodeService.connections" pair="pair"></node-link>
+					<g class="node-link">
+						<node-link ng-repeat="pair in nodeService.connections"></node-link>
 						<node-temp-link></node-temp-link>
 					</g>
 

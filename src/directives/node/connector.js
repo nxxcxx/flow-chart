@@ -53,10 +53,9 @@ module.exports = [ 'log', '$rootScope', 'nodeService', 'nodeEvent', ( log, $root
 
       function computePosition() {
          var yOff = parseInt( $attrs.index ) * $scope.rowHeight + nodeCtrl.getHeaderHeight() + nodeCtrl.getConnHeightOffset() + nodeCtrl.getConnHeight() * 0.5;
-         $scope.io.position = {
-            left: dragCtrl.position.x + ( $scope.io.type ? nodeCtrl.getWidth() - 0.5 : 0 + 0.5 ),
-            top: dragCtrl.position.y + yOff
-         };
+         if ( !$scope.io.position ) $scope.io.position = {};
+         $scope.io.position.left = dragCtrl.position.x + ( $scope.io.type ? nodeCtrl.getWidth() - 0.5 : 0 + 0.5 );
+         $scope.io.position.top = dragCtrl.position.y + yOff;
       }
 
       log.debug( 'Scope', $scope.$id, 'Connector', $scope );

@@ -17,12 +17,19 @@ module.exports = [ () => {
          this.dest = null;
       }
       connect( io ) {
+         //input
          this.dest = io;
          this.available = false;
+         // output
+         io.dest.push( this );
          io.available = false;
       }
       disconnect() {
-         this.dest.available = true;
+         // output
+         var i = this.dest.dest.indexOf( this );
+         if ( i > -1 ) this.dest.dest.splice( i, 1 );
+         if ( this.dest.dest.length === 0 ) this.dest.available = true;
+         // input
          this.dest = null;
          this.available = true;
       }
@@ -36,6 +43,7 @@ module.exports = [ () => {
          super( name, parent );
          this.type = 1;
          this.data = null;
+         this.dest = [];
       }
    }
 
