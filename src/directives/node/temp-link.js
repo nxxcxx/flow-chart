@@ -2,7 +2,7 @@ module.exports = [ '$rootScope', ( $rootScope ) => {
 
    function link( $scope, $element, $attrs, $controllers ) {
 
-      // make element click thruable
+      // make element click thru-able
       $element.css( 'pointer-events', 'none' );
 
       var panCtrl = $controllers[ 0 ];

@@ -28,10 +28,10 @@ module.exports = [ 'log', 'updateLinkEvent', ( log, updateLinkEvent ) => {
       $scope.width = 0;
       $scope.height = 0;
       $scope.rowHeight = 10;
-      $scope.connWidth = 5;
-      $scope.connHeight = 5;
+      $scope.connWidth = 3.5;
+      $scope.connHeight = 4;
       $scope.connWidthOffset = -0.5;
-      $scope.connHeightOffset = 2.5;
+      $scope.connHeightOffset = 3;
       $scope.labelSpacing = 2;
 
       $scope.numInput = $scope.nodeObject.input.length;

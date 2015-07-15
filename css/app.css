@@ -44,12 +44,13 @@ html, body {
 
 .node.body {
   stroke-width: 0.5px;
-  stroke: rgba(255, 255, 255, 0.5);
-  fill: rgba(255, 255, 255, 0.1); }
+  fill: rgba(255, 255, 255, 0.2); }
+
+.node.body.selected {
+  fill: rgba(255, 255, 255, 0.3); }
 
 .node.header {
-  fill: none;
-  cursor: move; }
+  fill: none; }
 
 .node.header.selected {
   fill: none; }
@@ -62,7 +63,7 @@ html, body {
   font-size: 6px; }
 
 .node.connector {
-  stroke-width: 1.0px;
+  stroke-width: 0.5px;
   stroke: #182634;
   fill: #182634; }
 
