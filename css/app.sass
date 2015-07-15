@@ -1,0 +1,93 @@
+
+$w1: rgba(#fff, 0.1)
+$w2: rgba(#fff, 0.2)
+$w3: rgba(#fff, 0.3)
+$w4: rgba(#fff, 0.5)
+$w5: rgba(#fff, 0.5)
+$w6: rgba(#fff, 0.6)
+$w7: rgba(#fff, 0.7)
+$w8: rgba(#fff, 0.8)
+$w9: rgba(#fff, 0.9)
+$w10: rgba(#fff, 1.0)
+
+$grey: #dddddd
+
+$midnight-blue: #182634
+
+@font-face
+   font-family: Orbitron
+   src: url( 'font/orbitron-light.otf' )
+
+html, body
+   font-family: Orbitron
+   margin: 0px
+   padding: 0px
+   height: 100%
+
+.container
+   width: 100%
+   height: 100%
+   padding: 0px
+
+.view
+   height: 100%
+   float: left
+
+   &.left
+      background: $grey
+      width: 30%
+      overflow-y: scroll
+
+   &.right
+      width: 70%
+
+
+#nodeCanvas
+   -webkit-touch-callout: none
+   -webkit-user-select: none
+   -khtml-user-select: none
+   -moz-user-select: none
+   -ms-user-select: none
+   user-select: none
+   height: 100%
+   width: 100%
+   display: block
+   cursor: default
+   font-size: 9px
+   background-color: $midnight-blue
+
+.node
+   &.link
+      stroke-width: 0.5px
+      stroke: $w10
+      fill: none
+
+   &.body
+      stroke-width: 0.5px
+      stroke: $w5
+      fill: $w1
+
+   &.body.selected
+
+
+   &.header
+      fill: none
+      cursor: move
+
+   &.header.selected
+      fill: none
+
+   &.label
+      fill: $w10
+      font-size: 5px
+
+   &.label.header
+      font-size: 6px
+
+   &.connector
+      stroke-width: 1.0px
+      stroke: $midnight-blue
+      fill: $midnight-blue
+
+   &.connector.selected
+      fill: $w10

@@ -9,6 +9,7 @@ var gutil = require( 'gulp-util' );
 var source = require( 'vinyl-source-stream' );
 var buffer = require( 'vinyl-buffer' );
 var assign = require( 'lodash.assign' );
+var sass = require( 'gulp-sass' );
 
 var customOpts = {
 	entries: [ './src/index.js' ],
@@ -20,8 +21,6 @@ br.transform( babelify );
 br.on( 'update', bundle );
 br.on( 'log', gutil.log );
 
-gulp.task( 'bundle', bundle );
-
 function bundle() {
 
 	return br.bundle()
@@ -32,14 +31,14 @@ function bundle() {
 
 }
 
-// gulp serve -> start bundle( browserify & watchify & babelify ) -> watch bundle -> reload browser
-gulp.task( 'serve', [ 'bundle' ], function () {
+gulp.task( 'bundle', bundle );
 
-   // init browser-sync
-   browserSync.init( {
+gulp.task( 'serve', [ 'bundle', 'sass' ], function () {
 
-      files: [ './css/*' ],
-      injectChanges: true,
+	browserSync.init( {
+
+		files: [ './css/*.css' ],
+		injectChanges: true,
 		server: {
 			baseDir: '.',
 			index: 'index.html'
@@ -51,7 +50,15 @@ gulp.task( 'serve', [ 'bundle' ], function () {
 
 	} );
 
-   // init watch task
 	gulp.watch( [ 'index.html', './build/*', 'template/*' ], browserSync.reload );
+	gulp.watch( [ './css/*.sass' ], [ 'sass' ] );
+
+} );
+
+gulp.task( 'sass', function () {
+
+	gulp.src( './css/*.sass' )
+		.pipe( sass().on( 'error', sass.logError ) )
+		.pipe( gulp.dest( './css' ) );
 
 } );

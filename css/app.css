@@ -1,107 +1,70 @@
 @font-face {
-   font-family: Neou;
-   src: url( font/Neou-Bold.ttf );
-}
-
-@font-face {
-   font-family: OpenSans;
-   src: url( font/OpenSans-Light.ttf );
-}
-
-@font-face {
-   font-family: Lane;
-   src: url( font/Lane.ttf );
-}
-
-@font-face {
-   font-family: Ubuntu;
-   src: url( font/Ubuntu-Regular.ttf );
-}
-
-@font-face {
-   font-family: Orbitron;
-   src: url( font/orbitron-light.otf );
-}
+  font-family: Orbitron;
+  src: url("font/orbitron-light.otf"); }
 
 html, body {
-   /*font-family: Sans-serif;*/
-   /*font-family: Neou;*/
-   /*font-family: Lane;*/
-   /*font-family: OpenSans;*/
-   /*font-family: Ubuntu;*/
-   font-family: Orbitron;
-   margin: 0px;
-   padding: 0px;
-   height: 100%;
-}
+  font-family: Orbitron;
+  margin: 0px;
+  padding: 0px;
+  height: 100%; }
 
 .container {
-   width: 100%;
-   height: 100%;
-   padding: 0px;
-}
+  width: 100%;
+  height: 100%;
+  padding: 0px; }
 
 .view {
-   height: 100%;
-   float: left;
-}
-
-.view.left {
-   background: #DCDCDC;
-   width: 30%;
-   overflow-y: scroll;
-}
-
-.view.right {
-   width: 70%;
-   background-color: #182634;
-}
+  height: 100%;
+  float: left; }
+  .view.left {
+    background: #dddddd;
+    width: 30%;
+    overflow-y: scroll; }
+  .view.right {
+    width: 70%; }
 
 #nodeCanvas {
-   -webkit-touch-callout: none;
-   -webkit-user-select: none;
-   -khtml-user-select: none;
-   -moz-user-select: none;
-   -ms-user-select: none;
-   user-select: none;
-   height: 100%;
-   width: 100%;
-   display: block;
-   cursor: default;
-   font-size: 9px;
-}
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  height: 100%;
+  width: 100%;
+  display: block;
+  cursor: default;
+  font-size: 9px;
+  background-color: #182634; }
 
-.node-link {
-   stroke-width: 0.5px;
-   stroke: rgba(255, 255, 255, 1.0);
-   fill: none;
-}
+.node.link {
+  stroke-width: 0.5px;
+  stroke: white;
+  fill: none; }
+
 .node.body {
-   stroke-width: 0.5px;
-   stroke: rgba(255, 255, 255, 0.5);
-   fill: rgba( 255, 255, 255, 0.1 );
-}
-.node.body.selected {
+  stroke-width: 0.5px;
+  stroke: rgba(255, 255, 255, 0.5);
+  fill: rgba(255, 255, 255, 0.1); }
 
-}
 .node.header {
-   fill: rgba( 255, 255, 255, 0.1 );
-}
+  fill: none;
+  cursor: move; }
+
 .node.header.selected {
-   fill: rgba( 255, 255, 255, 0.2 );
-}
+  fill: none; }
+
 .node.label {
-   fill: #fff;
-   font-size: 5px;
-}
+  fill: white;
+  font-size: 5px; }
+
 .node.label.header {
-   font-size: 6px;
-}
+  font-size: 6px; }
+
 .node.connector {
-   stroke-width: 1.0px;
-   stroke: #182634;
-   fill: #182634;
-}
+  stroke-width: 1.0px;
+  stroke: #182634;
+  fill: #182634; }
+
 .node.connector.selected {
-   fill: #fff;
-}
+  fill: white; }
