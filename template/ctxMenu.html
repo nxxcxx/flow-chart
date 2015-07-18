@@ -1,0 +1,4 @@
+<ul ng-show="active" class="no-highlight"
+   style="background: white; position: fixed; z-index: 1000; padding: 0px 5px; cursor: default; border: 1px solid black">
+   <li ng-repeat="item in menu" ng-click="item.fn()">{{ item.name }}</li>
+</ul>

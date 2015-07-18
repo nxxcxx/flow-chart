@@ -14,17 +14,23 @@ module.exports = [ '$rootScope', 'nodeService', ( $rootScope, nodeService ) => {
          pair[ iniConn.type ] = iniConn;
          pair[ endConn.type ] = endConn;
 
-         if ( !isDuplicate( pair[ 0 ], pair[ 1 ] ) ) {
+         if ( !isCyclic( pair ) ) {
+            if ( !isDuplicate( pair[ 0 ], pair[ 1 ] ) ) {
 
-            if ( !pair[ 0 ].available ) {
-               nodeService.removeConnections( pair[ 0 ] );
+               if ( !pair[ 0 ].available ) {
+                  nodeService.removeConnections( pair[ 0 ] );
+               }
+
+               pair[ 0 ].connect( pair[ 1 ] );
+               nodeService.connections.push( pair );
+               nodeService.computeTopologicalOrder();
+               $rootScope.$apply();
+
+            } else {
+               console.log( 'Duplicated pair.' );
             }
-
-            pair[ 0 ].connect( pair[ 1 ] );
-            nodeService.connections.push( pair );
-            nodeService.computeTopologicalOrder();
-            $rootScope.$apply();
-
+         } else {
+            console.log( 'Cyclic dependency.' );
          }
 
       }
@@ -49,6 +55,17 @@ module.exports = [ '$rootScope', 'nodeService', ( $rootScope, nodeService ) => {
 
    function isDuplicate( inp, opt ) {
       return nodeService.connections.some( pair => pair[ 0 ].uuid === inp.uuid && pair[ 1 ].uuid === opt.uuid );
+   }
+
+   function isCyclic( pair ) {
+      var tmp = nodeService.connections.slice();
+      tmp.push( pair );
+      try {
+         nodeService.topoSort( tmp );
+      } catch ( e ) {
+         return true;
+      }
+      return false;
    }
 
    return {

@@ -2,7 +2,7 @@ module.exports = [ 'log', 'nodeService', 'CM', ( log, nodeService, CM ) => {
 
    function link( $scope, $element, $attrs, $controllers ) {
 
-      $element.on( 'click', () => {
+      $element.on( 'click', e => {
          nodeService.setSelected( $scope.nodeObject );
          CM.getInstance().setValue( $scope.nodeObject._fnstr );
          $scope.$apply();

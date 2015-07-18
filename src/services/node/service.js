@@ -30,7 +30,7 @@ module.exports = [ 'nodeFactory', ( nodeFactory ) => {
    }
 
    function createEmptyNode() {
-      var n = nodeFactory.create( 'Empty' );
+      var n = nodeFactory.create( 'NULL' );
       nodes.push( n );
       return n;
    }
@@ -74,10 +74,10 @@ module.exports = [ 'nodeFactory', ( nodeFactory ) => {
 
    }
 
-   function computeTopologicalOrder() {
+   function topoSort( connArray ) {
 
       var deps = [];
-      connections.forEach( pair => {
+      connArray.forEach( pair => {
 
          var v1 = pair[ 0 ].getParent().uuid;
          var v2 = pair[ 1 ].getParent().uuid;
@@ -85,7 +85,13 @@ module.exports = [ 'nodeFactory', ( nodeFactory ) => {
 
       } );
 
-      var sorted = TOPOSORT( deps );
+      return TOPOSORT( deps );
+
+   }
+
+   function computeTopologicalOrder() {
+
+      var sorted = topoSort( connections );
       nodes.forEach( n => { n.order = sorted.indexOf( n.uuid ); } );
 
    }
@@ -125,7 +131,8 @@ module.exports = [ 'nodeFactory', ( nodeFactory ) => {
       setSelected,
       getSelectedNode,
       run,
-      createEmptyNode
+      createEmptyNode,
+      topoSort
 
    };
 
