@@ -87,7 +87,7 @@ module.exports = [ 'log', 'updateLinkEvent', ( log, updateLinkEvent ) => {
       replace: true,
       require: [ '^svgDraggable', '^svgZoomable' ],
       templateNamespace: 'svg',
-      templateUrl: './src/blackbox/template/xxBody.html',
+      templateUrl: './src/xx/template/xxBody.html',
       link,
       controller
 

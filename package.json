@@ -1,25 +1,23 @@
 {
-  "devDependencies": {
-    "babelify": "^6.1.2",
-    "browser-sync": "^2.7.13",
-    "browserify": "^10.2.4",
-    "gulp": "^3.9.0",
-    "gulp-sourcemaps": "^1.5.2",
-    "gulp-util": "^3.0.6",
-    "lodash.assign": "^3.2.0",
-    "vinyl-buffer": "^1.0.0",
-    "vinyl-source-stream": "^1.1.0",
-    "watchify": "^3.2.3",
-    "gulp-sass": "^2.0.3"
-  },
-  "dependencies": {
-    "angular": "^1.4.1",
-    "circular-json": "^0.1.6",
-    "codemirror": "^5.4.0",
-    "jquery": "^2.1.4",
-    "jquery-ui": "^1.10.5",
-    "throttle-debounce": "^0.1.1",
-    "toposort": "^0.2.10",
-    "uuid": "^2.0.1"
-  }
+	"devDependencies": {
+		"babelify": "^6.1.2",
+		"browser-sync": "^2.7.13",
+		"browserify": "^10.2.4",
+		"gulp": "^3.9.0",
+		"gulp-sourcemaps": "^1.5.2",
+		"gulp-util": "^3.0.6",
+		"lodash.assign": "^3.2.0",
+		"vinyl-buffer": "^1.0.0",
+		"vinyl-source-stream": "^1.1.0",
+		"watchify": "^3.2.3",
+		"gulp-sass": "^2.0.3"
+	},
+	"dependencies": {
+		"jquery": "^2.1.4",
+		"angular": "^1.4.1",
+		"codemirror": "^5.4.0",
+		"circular-json": "^0.1.6",
+		"toposort": "^0.2.10",
+		"uuid": "^2.0.1"
+	}
 }

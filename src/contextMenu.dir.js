@@ -49,7 +49,7 @@ module.exports = [ 'CTXM', '$rootScope', ( CTXM, $rootScope ) => {
       restrict: 'E',
       replace: true,
       scope: {},
-      templateUrl: './template/ctxMenu.html',
+      templateUrl: './src/contextMenu.html',
       controller
 
    };

@@ -50,7 +50,7 @@ gulp.task( 'serve', [ 'bundle', 'sass' ], function () {
 
 	} );
 
-	gulp.watch( [ 'index.html', './build/*', 'template/*' ], browserSync.reload );
+	gulp.watch( [ 'index.html', './build/*' ], browserSync.reload );
 	gulp.watch( [ './css/*.sass' ], [ 'sass' ] );
 
 } );
