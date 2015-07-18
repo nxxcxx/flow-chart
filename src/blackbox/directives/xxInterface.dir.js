@@ -14,7 +14,7 @@ module.exports = [ 'log', ( log ) => {
 		restrict: 'E',
 		replace: true,
 		templateNamespace: 'svg',
-		templateUrl: './template/io-col.html',
+		templateUrl: './src/blackbox/template/xxInterface.html',
 		scope: true,
 		link
 

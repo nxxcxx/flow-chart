@@ -3,14 +3,14 @@ module.exports = [ 'log', '$timeout', '$rootScope', ( log, $timeout, $rootScope 
    function link( $scope, $element, $attrs ) {
 
       $scope.$on( 'requestLabelWidth', ( e, setMaxLabelWidth ) => {
-         setMaxLabelWidth( $attrs.nodeLabel , $element[ 0 ].getComputedTextLength() );
+         setMaxLabelWidth( $attrs.xxLabel , $element[ 0 ].getComputedTextLength() );
       } );
 
       $timeout( () => {
          if ( $scope.$last ) $scope.nodeObject.updateUI();
       } );
 
-      log.debug( 'Scope', $scope.$id, 'Label', $attrs.nodeLabel, $scope );
+      log.debug( 'Scope', $scope.$id, 'Label', $attrs.xxLabel, $scope );
 
 
       $element.on( 'contextmenu', e => {

@@ -4,28 +4,34 @@ global.TOPOSORT = require( 'toposort' );
 global.CJSON = require( 'circular-json' );
 
 angular.module( 'nodeApp', [] )
-	.provider( 'log', require( './provider/logProvider' ) )
-	.service( 'updateLinkEvent', require( './services/events/updateLinkEvent' ) )
-	.factory( 'nodeService', require( './services/node/service' ) )
-	.factory( 'nodeFactory', require( './services/node/factory' ) )
-	.factory( 'nodeEvent', require( './services/node/event' ) )
-	.factory( 'CM', require( './services/cm-service' ) )
-	.factory( 'CTXM', require( './services/ctxm-service' ) )
-	.controller( 'nodeCtrl', require( './controllers/nodeCtrl' ) )
-	.directive( 'nodeModule', require( './directives/node/module' ) )
-	.directive( 'nodeCol', require( './directives/node/io-col' ) )
-	.directive( 'nodeLabel', require( './directives/node/label' ) )
-	.directive( 'nodeConnector', require( './directives/node/connector' ) )
-	.directive( 'nodeLink', require( './directives/node/link' ) )
-	.directive( 'nodeTempLink', require( './directives/node/temp-link' ) )
-	.directive( 'nodeSortable', require( './directives/node/sortable' ) )
-	.directive( 'nodeSortItem', require( './directives/node/sortitem' ) )
-	.directive( 'nodeSelectable', require( './directives/node/selectable' ) )
-	.directive( 'svgPannable', require( './directives/svg-pannable' ) )
-	.directive( 'svgZoomable', require( './directives/svg-zoomable' ) )
-	.directive( 'codeMirror', require( './directives/codeMirror' ) )
-	.directive( 'contextMenu', require( './directives/ctxm' ) )
-	.filter( 'cjson', require( './filters/cjson' ) )
+	.filter( 'cjson', require( './common/cjson.filter' ) )
+	.provider( 'log', require( './common/log.provider' ) )
+
+	.service( 'updateLinkEvent', require( './blackbox/services/events/updateLinkEvent' ) )
+
+	.factory( 'nodeService', require( './blackbox/services/service' ) )
+	.factory( 'nodeFactory', require( './blackbox/services/factory' ) )
+	.factory( 'nodeEvent', require( './blackbox/services/event' ) )
+
+	.factory( 'CM', require( './cm-service' ) )
+	.factory( 'CTXM', require( './ctxm-service' ) )
+	.controller( 'nodeCtrl', require( './blackbox/controllers/BlackBox.ctrl' ) )
+
+	.directive( 'xxBody', require( './blackbox/directives/xxBody.dir' ) )
+	.directive( 'xxInterface', require( './blackbox/directives/xxInterface.dir' ) )
+	.directive( 'xxLabel', require( './blackbox/directives/xxLabel.dir' ) )
+	.directive( 'xxConnector', require( './blackbox/directives/xxConnector.dir' ) )
+	.directive( 'xxLink', require( './blackbox/directives/xxLink.dir' ) )
+	.directive( 'xxTempLink', require( './blackbox/directives/xxTempLink.dir' ) )
+	.directive( 'xxSortable', require( './blackbox/directives/xxSortable.dir' ) )
+	.directive( 'xxSortItem', require( './blackbox/directives/xxSortItem.dir' ) )
+	.directive( 'xxSelectable', require( './blackbox/directives/xxSelectable.dir' ) )
+	.directive( 'svgDraggable', require( './blackbox/directives/svgDraggable.dir' ) )
+	.directive( 'svgZoomable', require( './blackbox/directives/svgZoomable.dir' ) )
+
+	.directive( 'codeMirror', require( './codeMirror' ) )
+	.directive( 'contextMenu', require( './ctxm' ) )
+
 	.config( [ 'logProvider', ( logProvider ) => {
 
 		logProvider.enableDebug();

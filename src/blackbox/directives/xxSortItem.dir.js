@@ -31,7 +31,7 @@ module.exports = [ 'log', ( log ) => {
    return {
 
       restrict: 'A',
-      require: [ '^nodeSortable', '^svgPannable' ],
+      require: [ '^xxSortable', '^svgDraggable' ],
       link
 
    };

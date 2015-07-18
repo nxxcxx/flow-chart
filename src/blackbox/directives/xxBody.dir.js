@@ -2,10 +2,10 @@ module.exports = [ 'log', 'updateLinkEvent', ( log, updateLinkEvent ) => {
 
    function link( $scope, $element, $attrs, $controllers ) {
 
-      var svgPannableCtrl = $controllers[ 0 ];
+      var svgDraggableCtrl = $controllers[ 0 ];
       var svgZoomableCtrl = $controllers[ 1 ];
 
-      svgPannableCtrl.addDragEvent( () => {
+      svgDraggableCtrl.addDragEvent( () => {
 
          $scope.$broadcast( 'connectionNeedsUpdate' );
          updateLinkEvent.broadcast();
@@ -13,10 +13,10 @@ module.exports = [ 'log', 'updateLinkEvent', ( log, updateLinkEvent ) => {
       } );
 
       $scope.$on( 'zoomed', ( e, v ) => {
-         svgPannableCtrl.scalingFactor = v;
+         svgDraggableCtrl.scalingFactor = v;
       } );
 
-      svgPannableCtrl.scalingFactor = svgZoomableCtrl.scalingFactor;
+      svgDraggableCtrl.scalingFactor = svgZoomableCtrl.scalingFactor;
 
       log.debug( 'Scope', $scope.$id, 'Node', $scope );
 
@@ -85,9 +85,9 @@ module.exports = [ 'log', 'updateLinkEvent', ( log, updateLinkEvent ) => {
 
       restrict: 'E',
       replace: true,
-      require: [ '^svgPannable', '^svgZoomable' ],
+      require: [ '^svgDraggable', '^svgZoomable' ],
       templateNamespace: 'svg',
-      templateUrl: './template/node.html',
+      templateUrl: './src/blackbox/template/xxBody.html',
       link,
       controller
 

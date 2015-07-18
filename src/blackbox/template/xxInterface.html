@@ -1,4 +1,4 @@
-<g node-sortable>
+<g xx-sortable>
    <g ng-repeat="io in ioArray track by io.uuid">
       <rect row
          fill="rgba(255, 255, 255, 0.0)"
@@ -9,7 +9,7 @@
          ng-attr-height="{{ rowHeight }}"
       />
 
-      <text node-sort-item node-label="{{ type }}" class="node label"
+      <text xx-sort-item xx-label="{{ type }}" class="node label"
          ng-attr-x="{{ io.type === 0 ? connWidth + labelSpacing : width - connWidth - labelSpacing }}"
          ng-attr-y="{{ $index * rowHeight + headerHeight + ( rowHeight * 0.5 ) }}"
          ng-attr-text-anchor="{{ io.type === 0 ? 'start' : 'end' }}"
@@ -17,7 +17,7 @@
          {{ io.name }}
       </text>
 
-      <node-connector></node-connector>
+      <xx-connector></xx-connector>
 
    </g>
 </g>

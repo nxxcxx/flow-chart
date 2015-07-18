@@ -66,9 +66,9 @@ module.exports = [ 'log', '$rootScope', 'nodeService', 'nodeEvent', ( log, $root
 
       restrict: 'E',
       replace: true,
-      require: [ '^nodeModule', '^svgPannable', '^nodeSortable' ],
+      require: [ '^xxBody', '^svgDraggable', '^xxSortable' ],
       templateNamespace: 'svg',
-      templateUrl: './template/connector.html',
+      templateUrl: './src/blackbox/template/xxConnector.html',
       link
 
    };

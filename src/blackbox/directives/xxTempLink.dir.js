@@ -51,7 +51,7 @@ module.exports = [ '$rootScope', ( $rootScope ) => {
 
 		restrict: 'E',
 		replace: true,
-      require: [ '^svgPannable', '^svgZoomable' ],
+      require: [ '^svgDraggable', '^svgZoomable' ],
 		templateNamespace: 'svg',
 		template: '<path ng-show="active" ng-attr-d="M{{start.x}},{{start.y}} C{{cp1.x}},{{cp1.y}} {{cp2.x}},{{cp2.y}} {{end.x}},{{end.y}}"/>',
 		scope: {},
