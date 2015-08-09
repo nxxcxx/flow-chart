@@ -1,9 +1,8 @@
 
-module.exports = [ 'log', '$scope', '$rootScope', 'nodeService', 'CM', ( log, $scope, $rootScope, nodeService, CM ) => {
+module.exports = [ 'log', '$scope', 'nodeService', ( log, $scope, nodeService ) => {
 
    global.SCOPE = $scope;
    $scope.nodeService = nodeService;
-   $scope.CM = CM;
 
    $scope.run = () => {
       nodeService.run();
@@ -13,6 +12,6 @@ module.exports = [ 'log', '$scope', '$rootScope', 'nodeService', 'CM', ( log, $s
    // todo add / remove input, when add/remove input run apply this scope!
    // webaudio
 
-   log.debug( 'Scope', $scope.$id, 'NodeCtrl', $scope );
+   log.debug( 'Scope', $scope.$id, 'nodeCtrl', $scope );
 
 } ];

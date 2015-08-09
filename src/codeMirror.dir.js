@@ -10,7 +10,7 @@ module.exports = [ 'CM', 'nodeService', ( CM, nodeService ) => {
          tabSize: 3
       } );
 
-      cm.setSize( '100%', 500 );
+      cm.setSize( '100%', 300 );
       cm.on( 'change', () => {
          var node = nodeService.getSelectedNode();
          if ( node ) {

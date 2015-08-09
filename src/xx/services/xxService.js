@@ -74,6 +74,12 @@ module.exports = [ 'nodeFactory', ( nodeFactory ) => {
 
    }
 
+   function deleteIO( io ) {
+      /* remove connections
+         remove io
+      */
+   }
+
    function topoSort( connArray ) {
 
       var deps = [];

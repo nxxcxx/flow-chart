@@ -1,4 +1,4 @@
-module.exports = [ 'log', 'nodeService', 'CM', ( log, nodeService, CM ) => {
+module.exports = [ 'log', 'nodeService', 'CM', '$rootScope', ( log, nodeService, CM, $rootScope ) => {
 
    function link( $scope, $element, $attrs, $controllers ) {
 
@@ -14,6 +14,18 @@ module.exports = [ 'log', 'nodeService', 'CM', ( log, nodeService, CM ) => {
       } );
 
       log.debug( 'Scope', $scope.$id, 'Selectable', $scope );
+
+      $element.on( 'contextmenu', e => {
+
+         e.stopPropagation();
+         e.preventDefault();
+
+         var m = [
+            { name: 'Log Scope', fn: () => console.log( $scope ) }
+         ];
+         $rootScope.$broadcast( 'menu.open', { event: e, menu: m } );
+
+      } );
 
    }
 

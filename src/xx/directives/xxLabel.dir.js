@@ -15,7 +15,10 @@ module.exports = [ 'log', '$timeout', '$rootScope', ( log, $timeout, $rootScope 
 
       $element.on( 'contextmenu', e => {
 
-         if ( $scope.io && e.target === $element[ 0 ] ) {
+         e.preventDefault();
+
+         if ( $scope.io ) {
+            e.stopPropagation();
             var m = [
                { name: 'Log Label Name', fn: () => console.log( $scope.io.name ) },
                { name: 'Log Scope', fn: () => console.log( $scope ) }
@@ -24,6 +27,8 @@ module.exports = [ 'log', '$timeout', '$rootScope', ( log, $timeout, $rootScope 
          }
 
       } );
+
+      // $element.attachContextMenuService( [contextMenu] )
 
    }
 

@@ -76,7 +76,9 @@ pre {
   font-size: 6px; }
 
 .node.connector {
-  fill: #182634; }
+  fill: rgba(0, 0, 0, 0.25);
+  stroke-width: 0.25px;
+  stroke: #FFF; }
 
 .node.connector.selected {
   fill: white; }

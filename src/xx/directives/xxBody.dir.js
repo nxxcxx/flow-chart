@@ -24,6 +24,8 @@ module.exports = [ 'log', 'updateLinkEvent', ( log, updateLinkEvent ) => {
 
    function controller( $scope, $element, $attrs ) {
 
+      var body = this;
+
       $scope.headerHeight = 10;
       $scope.width = 0;
       $scope.height = 0;
@@ -78,7 +80,7 @@ module.exports = [ 'log', 'updateLinkEvent', ( log, updateLinkEvent ) => {
       }
 
       $scope.$watch( () => { return $scope.nodeObject._ui.update; }, updateUI );
-
+      
    }
 
    return {
@@ -89,7 +91,8 @@ module.exports = [ 'log', 'updateLinkEvent', ( log, updateLinkEvent ) => {
       templateNamespace: 'svg',
       templateUrl: './src/xx/template/xxBody.html',
       link,
-      controller
+      controller,
+      controllerAs: 'body'
 
    };
 
